@@ -18,16 +18,17 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath())
 p.setGravity(0,0,-9.8)
 
 planeId = p.loadURDF("plane.urdf")
+robotId = p.loadURDF("body.urdf")
 
 #Let's now simulate this box. This line tells pybullet to read in (import) the world described in box.sdf
-p.loadSDF("box.sdf")
+p.loadSDF("world.sdf")
 
 # Let's slow things down so we can see our simulated world.
 # Between the connect and disconnect lines, include a for loop that iterates 1000 times.
 # Inside the loop include
 for i in range(1,1000):
     p.stepSimulation()
-    time.sleep(.000016)
+    time.sleep(.016)
     print(i)
 
 p.disconnect()

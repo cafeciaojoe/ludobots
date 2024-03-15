@@ -1,9 +1,12 @@
 """How the world is simulated"""
 
 import pybullet as p
+import numpy
 import time
+import pyrosim.pyrosim as pyrosim
 #plane.urdf comes with pybullet; you do not have to generate it. We have to tell pybullet where to find it by adding
 import pybullet_data
+import os
 
 physicsClient = p.connect(p.GUI)
 #this line allows the use of an existing asset, ie a floor e.g. plane.udrf
@@ -23,12 +26,27 @@ robotId = p.loadURDF("body.urdf")
 #Let's now simulate this box. This line tells pybullet to read in (import) the world described in box.sdf
 p.loadSDF("world.sdf")
 
-# Let's slow things down so we can see our simulated world.
-# Between the connect and disconnect lines, include a for loop that iterates 1000 times.
-# Inside the loop include
-for i in range(1,1000):
+#Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.
+pyrosim.Prepare_To_Simulate(robotId)
+
+loops = 1000
+
+torsoLegSensorValues = numpy.zeros(loops)
+#frontLegSensorValues = numpy.zeros(loops)
+#backLegSensorValues = numpy.zeros(loops)
+
+for i in range(1,loops):
     p.stepSimulation()
-    time.sleep(.016)
-    print(i)
+    torsoLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("Torso")
+    #frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
+    #backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    #print(backLegSensorValues[i],frontLegSensorValues[i])
+    print(torsoLegSensorValues[i])
+    time.sleep(.0016)
+
+#https://stackoverflow.com/questions/43731481/how-to-use-np-save-to-save-files-in-different-directory-in-python
+numpy.save(os.path.join('data','torsoLegSensorValues'),torsoLegSensorValues)
+#numpy.save(os.path.join('data','backLegSensorValues'),backLegSensorValues)
+#numpy.save(os.path.join('data','frontLegSensorValues'),frontLegSensorValues)
 
 p.disconnect()

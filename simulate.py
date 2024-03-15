@@ -7,9 +7,13 @@ physicsClient = p.connect(p.GUI)
 # This change will also dramatically speed up the GUI simulation on some platforms.
 #p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
+#loads the world called box.sdf.
+p.loadSDF("box.sdf")
+
 # Let's slow things down so we can see our simulated world.
 # Between the connect and disconnect lines, include a for loop that iterates 1000 times.
 # Inside the loop include
+
 for i in range(1,1000):
     p.stepSimulation()
     time.sleep(.016)

@@ -14,7 +14,7 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 # to disable the sidebars on the pybullet simulation.
 # This change will also dramatically speed up the GUI simulation on some platforms.
-#p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
+p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
 #ou will have noticed that if you manipulate the cube and then let it go, it will float away.
 # This is because no forces are currently at work in your simulated world.
@@ -29,24 +29,21 @@ p.loadSDF("world.sdf")
 #Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.
 pyrosim.Prepare_To_Simulate(robotId)
 
-loops = 1000
+loops = 10000
 
-torsoLegSensorValues = numpy.zeros(loops)
-#frontLegSensorValues = numpy.zeros(loops)
-#backLegSensorValues = numpy.zeros(loops)
+frontLegSensorValues = numpy.zeros(loops)
+backLegSensorValues = numpy.zeros(loops)
 
 for i in range(1,loops):
     p.stepSimulation()
-    torsoLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("Torso")
-    #frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-    #backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-    #print(backLegSensorValues[i],frontLegSensorValues[i])
-    print(torsoLegSensorValues[i])
+    frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
+    backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+    print(backLegSensorValues[i],frontLegSensorValues[i])
     time.sleep(.0016)
 
 #https://stackoverflow.com/questions/43731481/how-to-use-np-save-to-save-files-in-different-directory-in-python
-numpy.save(os.path.join('data','torsoLegSensorValues'),torsoLegSensorValues)
-#numpy.save(os.path.join('data','backLegSensorValues'),backLegSensorValues)
-#numpy.save(os.path.join('data','frontLegSensorValues'),frontLegSensorValues)
+numpy.save(os.path.join('data','frontLegSensorValues'),frontLegSensorValues)
+numpy.save(os.path.join('data','backLegSensorValues'),backLegSensorValues)
+
 
 p.disconnect()

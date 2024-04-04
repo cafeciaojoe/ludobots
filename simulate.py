@@ -7,6 +7,8 @@ import pyrosim.pyrosim as pyrosim
 #plane.urdf comes with pybullet; you do not have to generate it. We have to tell pybullet where to find it by adding
 import pybullet_data
 import os
+import math
+import random
 
 physicsClient = p.connect(p.GUI)
 #this line allows the use of an existing asset, ie a floor e.g. plane.udrf
@@ -34,6 +36,10 @@ loops = 5000
 frontLegSensorValues = numpy.zeros(loops)
 backLegSensorValues = numpy.zeros(loops)
 
+#targetAngles = .8*numpy.sin(numpy.linspace(0, 2*math.pi, num=loops, endpoint=True))
+
+#numpy.save(os.path.join('data','targetAngles'), targetAngles)
+
 for i in range(1,loops):
     p.stepSimulation()
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
@@ -50,9 +56,22 @@ for i in range(1,loops):
         controlMode=p.POSITION_CONTROL,
 
         #the desired angle between the two links connected by the joint
-        targetPosition=0.0,
+        targetPosition= random.uniform((-math.pi/2.0), (math.pi/2.0)),
 
-        maxForce=500)
+        maxForce=50)
+
+    pyrosim.Set_Motor_For_Joint(
+
+        bodyIndex=robotId,
+
+        jointName="Torso_FrontLeg",
+
+        controlMode=p.POSITION_CONTROL,
+
+        #the desired angle between the two links connected by the joint
+        targetPosition= random.uniform((-math.pi/2.0), (math.pi/2.0)),
+
+        maxForce=50)
 
     time.sleep(.0016)
 

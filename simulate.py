@@ -39,6 +39,21 @@ for i in range(1,loops):
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
     backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
     print(backLegSensorValues[i],frontLegSensorValues[i])
+
+    #During each step of the simulation, we are going to simulate a motor that supplies force to one of the robot's joints. To do so, add this statement
+    pyrosim.Set_Motor_For_Joint(
+
+        bodyIndex=robotId,
+
+        jointName="Torso_BackLeg",
+
+        controlMode=p.POSITION_CONTROL,
+
+        #the desired angle between the two links connected by the joint
+        targetPosition=0.0,
+
+        maxForce=500)
+
     time.sleep(.0016)
 
 #https://stackoverflow.com/questions/43731481/how-to-use-np-save-to-save-files-in-different-directory-in-python

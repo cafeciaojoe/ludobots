@@ -29,7 +29,7 @@ p.loadSDF("world.sdf")
 #Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.
 pyrosim.Prepare_To_Simulate(robotId)
 
-loops = 10000
+loops = 5000
 
 frontLegSensorValues = numpy.zeros(loops)
 backLegSensorValues = numpy.zeros(loops)

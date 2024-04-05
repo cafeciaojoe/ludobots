@@ -36,7 +36,7 @@ loops = 5000
 frontLegSensorValues = numpy.zeros(loops)
 backLegSensorValues = numpy.zeros(loops)
 
-#targetAngles = .8*numpy.sin(numpy.linspace(0, 2*math.pi, num=loops, endpoint=True))
+targetAngles = numpy.sin(numpy.linspace(0, 2*math.pi, num=loops, endpoint=True))
 
 #numpy.save(os.path.join('data','targetAngles'), targetAngles)
 
@@ -44,7 +44,7 @@ for i in range(1,loops):
     p.stepSimulation()
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
     backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-    print(backLegSensorValues[i],frontLegSensorValues[i])
+    #print(backLegSensorValues[i],frontLegSensorValues[i])
 
     #During each step of the simulation, we are going to simulate a motor that supplies force to one of the robot's joints. To do so, add this statement
     pyrosim.Set_Motor_For_Joint(
@@ -56,7 +56,7 @@ for i in range(1,loops):
         controlMode=p.POSITION_CONTROL,
 
         #the desired angle between the two links connected by the joint
-        targetPosition= random.uniform((-math.pi/2.0), (math.pi/2.0)),
+        targetPosition= targetAngles[i],
 
         maxForce=50)
 
@@ -69,10 +69,11 @@ for i in range(1,loops):
         controlMode=p.POSITION_CONTROL,
 
         #the desired angle between the two links connected by the joint
-        targetPosition= random.uniform((-math.pi/2.0), (math.pi/2.0)),
+        targetPosition= targetAngles[i],
 
         maxForce=50)
 
+    print(targetAngles[i])
     time.sleep(.0016)
 
 #https://stackoverflow.com/questions/43731481/how-to-use-np-save-to-save-files-in-different-directory-in-python

@@ -36,9 +36,23 @@ loops = 5000
 frontLegSensorValues = numpy.zeros(loops)
 backLegSensorValues = numpy.zeros(loops)
 
-targetAngles = numpy.sin(numpy.linspace(0, 2*math.pi, num=loops, endpoint=True))
+amplitudeFrontLeg = math.pi/4
+frequencyFrontLeg = 10
+phaseOffsetFrontLeg = 0
 
-#numpy.save(os.path.join('data','targetAngles'), targetAngles)
+amplitudeBackLeg = math.pi/4
+frequencyBackLeg = 10
+phaseOffsetBackLeg = math.pi/4
+
+# simple sine wave driven synchronised movement
+#targetAngles = .8 * numpy.sin(numpy.linspace(0, 2*math.pi, num=loops, endpoint=True))
+
+frontLegTargetAngles = amplitudeFrontLeg * numpy.sin(frequencyFrontLeg * numpy.linspace(0, 2*math.pi, num=loops, endpoint=True) + phaseOffsetFrontLeg)
+backLegTargetAngles = amplitudeBackLeg * numpy.sin(frequencyBackLeg * numpy.linspace(0, 2*math.pi, num=loops, endpoint=True) + phaseOffsetBackLeg)
+
+numpy.save(os.path.join('data','frontLegTargetAngles'), frontLegTargetAngles)
+numpy.save(os.path.join('data','backLegTargetAngles'), backLegTargetAngles)
+
 
 for i in range(1,loops):
     p.stepSimulation()
@@ -51,12 +65,12 @@ for i in range(1,loops):
 
         bodyIndex=robotId,
 
-        jointName="Torso_BackLeg",
+        jointName="Torso_FrontLeg",
 
         controlMode=p.POSITION_CONTROL,
 
         #the desired angle between the two links connected by the joint
-        targetPosition= targetAngles[i],
+        targetPosition= frontLegTargetAngles[i],
 
         maxForce=50)
 
@@ -64,16 +78,15 @@ for i in range(1,loops):
 
         bodyIndex=robotId,
 
-        jointName="Torso_FrontLeg",
+        jointName="Torso_BackLeg",
 
         controlMode=p.POSITION_CONTROL,
 
         #the desired angle between the two links connected by the joint
-        targetPosition= targetAngles[i],
+        targetPosition= backLegTargetAngles[i],
 
-        maxForce=50)
+        maxForce=50 )
 
-    print(targetAngles[i])
     time.sleep(.0016)
 
 #https://stackoverflow.com/questions/43731481/how-to-use-np-save-to-save-files-in-different-directory-in-python

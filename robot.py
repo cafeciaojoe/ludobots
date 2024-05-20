@@ -4,12 +4,18 @@
 #Note: We are going to name all of our classes in ALL CAPS to distinguish them from file names and variable names.
 
 import pybullet as p
+import pyrosim.pyrosim as pyrosim
 
 class ROBOT:
 
     def __init__(self):
-        self.sensors = {}
+
         self.motors = {}
 
         self.robotId = p.loadURDF("body.urdf")
+
+    def Prepare_To_Sense(self):
+        self.sensors = {}
+        for linkName in pyrosim.linkNamesToIndices:
+            print(linkName)
         pass

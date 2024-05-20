@@ -37,12 +37,13 @@ class SIMULATION:
 
         # Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.
         pyrosim.Prepare_To_Simulate(self.robot.robotId)
+        self.robot.Prepare_To_Sense()
 
     def run(self):
         loops = c.loops
         for i in range(1, loops):
             print(i)
-            # p.stepSimulation()
+            p.stepSimulation()
             # frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
             # backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
             # # print(backLegSensorValues[i],frontLegSensorValues[i])
@@ -74,4 +75,8 @@ class SIMULATION:
             #
             #     maxForce=c.frontLegForceMax)
             #
-            # time.sleep(c.loopSleep)
+            time.sleep(c.loopSleep)
+
+    #https://www.geeksforgeeks.org/destructors-in-python/
+    def __del__(self):
+        p.disconnect()

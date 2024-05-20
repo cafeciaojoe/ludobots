@@ -19,9 +19,6 @@ import constraints as c
 
 # loops = c.loops
 #
-# frontLegSensorValues = numpy.zeros(loops)
-# backLegSensorValues = numpy.zeros(loops)
-#
 # amplitudeFrontLeg = c.amplitudeFrontLeg
 # frequencyFrontLeg = c.frequencyFrontLeg
 # phaseOffsetFrontLeg = c.phaseOffsetFrontLeg

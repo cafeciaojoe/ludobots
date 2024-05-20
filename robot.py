@@ -6,6 +6,8 @@
 import pybullet as p
 import pyrosim.pyrosim as pyrosim
 
+from sensor import SENSOR
+
 class ROBOT:
 
     def __init__(self):
@@ -16,6 +18,10 @@ class ROBOT:
 
     def Prepare_To_Sense(self):
         self.sensors = {}
+        #Note: linkNamesToIndices is a dictionary used inside of pyrosim to hide a
+        # lot of details from you. But, for this, we will use it to give us the name
+        # of every link in body.urdf. Verify this by running simulate.py.
+        # You should see three names printed.
         for linkName in pyrosim.linkNamesToIndices:
-            print(linkName)
+            self.sensors[linkName] = SENSOR(linkName)
         pass

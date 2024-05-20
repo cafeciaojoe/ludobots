@@ -42,7 +42,7 @@ class SIMULATION:
     def run(self):
         loops = c.loops
         for i in range(1, loops):
-            print(i)
+            #print(i)
             p.stepSimulation()
             # frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
             # backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
@@ -75,7 +75,7 @@ class SIMULATION:
             #
             #     maxForce=c.frontLegForceMax)
             #
-            time.sleep(c.loopSleep)
+            #time.sleep(c.loopSleep)
 
     #https://www.geeksforgeeks.org/destructors-in-python/
     def __del__(self):

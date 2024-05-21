@@ -1,2 +1,4 @@
+# ignore everything in the directory
 *
+# except the .gitignorefile itself.
 !.gitignore

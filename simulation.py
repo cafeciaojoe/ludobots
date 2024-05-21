@@ -44,8 +44,7 @@ class SIMULATION:
         for i in range(1, loops):
             #print(i)
             p.stepSimulation()
-            # frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-            # backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+            self.robot.Sense()
             # # print(backLegSensorValues[i],frontLegSensorValues[i])
             #
             # # During each step of the simulation, we are going to simulate a motor that supplies force to one of the robot's joints. To do so, add this statement

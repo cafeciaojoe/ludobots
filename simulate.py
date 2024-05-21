@@ -3,7 +3,7 @@
 from simulation import SIMULATION
 
 simulation = SIMULATION()
-simulation.run()
+simulation.Run()
 
 import pybullet as p
 import numpy

@@ -26,7 +26,16 @@ class ROBOT:
             self.sensors[linkName] = SENSOR(linkName)
         pass
 
-    def Sense(self):
+    def Sense(self, timeStep):
 
+    # The issue lies in the Sense method of your ROBOT class.
+    # Specifically, you are trying to call SENSOR.Get_Value(timeStep)
+    # as if it were a static method, but it is an instance method.
+    # You should call Get_Value on each instance of SENSOR stored in self.sensors.
+        # for i in self.sensors:
+        #     self.sensors[i] = SENSOR.Get_Value(timeStep)
+        # pass
 
-        pass
+        for sensor in self.sensors.values():
+            sensor.Get_Value(timeStep)
+

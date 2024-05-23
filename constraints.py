@@ -7,7 +7,7 @@ Xgravity = 0
 Ygravity = 0
 Zgravity = -9.8
 
-loops = 5000
+loops = 50
 
 amplitudeFrontLeg = math.pi/4
 frequencyFrontLeg = 10

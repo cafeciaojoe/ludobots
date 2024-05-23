@@ -7,12 +7,11 @@ import pybullet as p
 import pyrosim.pyrosim as pyrosim
 
 from sensor import SENSOR
+from motor import MOTOR
 
 class ROBOT:
 
     def __init__(self):
-
-        self.motors = {}
 
         self.robotId = p.loadURDF("body.urdf")
 
@@ -39,3 +38,8 @@ class ROBOT:
         for sensor in self.sensors.values():
             sensor.Get_Value(timeStep)
 
+    def Prepare_To_Act(self):
+        self.motors = {}
+        for jointName in pyrosim.jointNamesToIndices:
+            self.motors[jointName] = MOTOR(jointName)
+        pass

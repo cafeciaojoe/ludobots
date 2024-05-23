@@ -41,7 +41,7 @@ class SIMULATION:
 
     def Run(self):
         loops = c.loops
-        for t in range(1, loops):
+        for t in range(0, loops):
             #print(i)
             p.stepSimulation()
             self.robot.Sense(t)

@@ -43,9 +43,8 @@ class SIMULATION:
         loops = c.loops
         for t in range(1, loops):
             #print(i)
-            timeStep = t
             p.stepSimulation()
-            self.robot.Sense(timeStep)
+            self.robot.Sense(t)
             # # print(backLegSensorValues[i],frontLegSensorValues[t])
             #
             # # During each step of the simulation, we are going to simulate a motor that supplies force to one of the robot's joints. To do so, add this statement

@@ -12,7 +12,6 @@ from motor import MOTOR
 class ROBOT:
 
     def __init__(self):
-
         self.robotId = p.loadURDF("body.urdf")
 
     def Prepare_To_Sense(self):
@@ -26,11 +25,10 @@ class ROBOT:
         pass
 
     def Sense(self, timeStep):
-
-    # The issue lies in the Sense method of your ROBOT class.
-    # Specifically, you are trying to call SENSOR.Get_Value(timeStep)
-    # as if it were a static method, but it is an instance method.
-    # You should call Get_Value on each instance of SENSOR stored in self.sensors.
+        # The issue lies in the Sense method of your ROBOT class.
+        # Specifically, you are trying to call SENSOR.Get_Value(timeStep)
+        # as if it were a static method, but it is an instance method.
+        # You should call Get_Value on each instance of SENSOR stored in self.sensors.
         # for i in self.sensors:
         #     self.sensors[i] = SENSOR.Get_Value(timeStep)
         # pass
@@ -42,4 +40,9 @@ class ROBOT:
         self.motors = {}
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
+        pass
+
+    def Act(self):
+        for motor in self.motors.values():
+            motor.Set_Value()
         pass

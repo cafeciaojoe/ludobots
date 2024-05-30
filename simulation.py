@@ -13,7 +13,7 @@ import pybullet_data
 import os
 import math
 import random
-import constraints as c
+import constants as c
 
 #Note: We are going to name all of our classes in ALL CAPS to distinguish them from file names and variable names.
 
@@ -38,6 +38,8 @@ class SIMULATION:
         # Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.
         pyrosim.Prepare_To_Simulate(self.robot.robotId)
         self.robot.Prepare_To_Sense()
+        self.robot.Prepare_To_Act()
+
 
     def Run(self):
         loops = c.loops
@@ -45,36 +47,12 @@ class SIMULATION:
             #print(i)
             p.stepSimulation()
             self.robot.Sense(t)
+            self.robot.Act()
             # # print(backLegSensorValues[i],frontLegSensorValues[t])
             #
             # # During each step of the simulation, we are going to simulate a motor that supplies force to one of the robot's joints. To do so, add this statement
-            # pyrosim.Set_Motor_For_Joint(
-            #
-            #     bodyIndex=robotId,
-            #
-            #     jointName="Torso_FrontLeg",
-            #
-            #     controlMode=p.POSITION_CONTROL,
-            #
-            #     # the desired angle between the two links connected by the joint
-            #     targetPosition=frontLegTargetAngles[i],
-            #
-            #     maxForce=c.frontLegForceMax)
-            #
-            # pyrosim.Set_Motor_For_Joint(
-            #
-            #     bodyIndex=robotId,
-            #
-            #     jointName="Torso_BackLeg",
-            #
-            #     controlMode=p.POSITION_CONTROL,
-            #
-            #     # the desired angle between the two links connected by the joint
-            #     targetPosition=backLegTargetAngles[i],
-            #
-            #     maxForce=c.frontLegForceMax)
-            #
-            #time.sleep(c.loopSleep)
+
+            time.sleep(c.loopSleep)
 
     #https://www.geeksforgeeks.org/destructors-in-python/
     def __del__(self):

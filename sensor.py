@@ -2,7 +2,7 @@
 
 import numpy
 import pyrosim.pyrosim as pyrosim
-import constraints as c
+import constants as c
 
 class SENSOR:
 

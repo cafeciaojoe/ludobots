@@ -14,7 +14,7 @@ import pybullet_data
 import os
 import math
 import random
-import constraints as c
+import constants as c
 
 
 # loops = c.loops
@@ -30,6 +30,7 @@ import constraints as c
 # # simple sine wave driven synchronised movement
 # #targetAngles = .8 * numpy.sin(numpy.linspace(0, 2*math.pi, num=loops, endpoint=True))
 #
+
 # frontLegTargetAngles = amplitudeFrontLeg * numpy.sin(frequencyFrontLeg * numpy.linspace(c.frontLegTargetAngleMin, c.frontLegTargetAngleMax, num=loops, endpoint=True) + phaseOffsetFrontLeg)
 # backLegTargetAngles = amplitudeBackLeg * numpy.sin(frequencyBackLeg * numpy.linspace(c.backLegTargetAngleMin, c.backLegTargetAngleMax, num=loops, endpoint=True) + phaseOffsetBackLeg)
 #

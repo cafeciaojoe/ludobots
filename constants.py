@@ -9,6 +9,14 @@ Zgravity = -9.8
 
 loops = 50
 
+amplitude = math.pi/4
+frequency = 10
+offset = 0
+#not needed maybe?
+TargetAngleMin = 0
+TargetAngleMax = 2*math.pi
+
+
 amplitudeFrontLeg = math.pi/4
 frequencyFrontLeg = 10
 phaseOffsetFrontLeg = 0

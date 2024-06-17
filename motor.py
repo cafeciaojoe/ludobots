@@ -4,8 +4,9 @@ import numpy
 
 import pyrosim.pyrosim as pyrosim
 import constants as c
-
 import pybullet as p
+
+import os
 
 class MOTOR:
 
@@ -58,5 +59,7 @@ class MOTOR:
 
             maxForce=c.frontLegForceMax)
 
-        pass
+    def Save_Values(self):
+        print('saving ', self.jointName, ' motor values')
+        numpy.save(os.path.join('data', (self.jointName + '_motor')), self.motorValues)
 

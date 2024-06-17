@@ -25,13 +25,18 @@ class ROBOT:
         pass
 
     def Sense(self, timeStep):
-        """The issue lies in the Sense method of your ROBOT class.
+        """
+        the following attempt is wrong
+
+        for i in self.sensors:
+            self.sensors[i] = SENSOR.Get_Value(timeStep)
+        pass
+
+        The issue lies in the Sense method of your ROBOT class.
         Specifically, you are trying to call SENSOR.Get_Value(timeStep)
         as if it were a static method, but it is an instance method.
         You should call Get_Value on each instance of SENSOR stored in self.sensors.
-        for i in self.sensors:
-            self.sensors[i] = SENSOR.Get_Value(timeStep)
-        pass"""
+        """
 
         for sensor in self.sensors.values():
             sensor.Get_Value(timeStep)
@@ -49,3 +54,10 @@ class ROBOT:
         for motor in self.motors.values():
             motor.Set_Value(timeStep,self)
         pass
+
+    def Save_Values(self):
+        for sensor in self.sensors.values():
+            sensor.Save_Values()
+
+        for motor in self.motors.values():
+            motor.Save_Values()

@@ -25,13 +25,13 @@ class ROBOT:
         pass
 
     def Sense(self, timeStep):
-        # The issue lies in the Sense method of your ROBOT class.
-        # Specifically, you are trying to call SENSOR.Get_Value(timeStep)
-        # as if it were a static method, but it is an instance method.
-        # You should call Get_Value on each instance of SENSOR stored in self.sensors.
-        # for i in self.sensors:
-        #     self.sensors[i] = SENSOR.Get_Value(timeStep)
-        # pass
+        """The issue lies in the Sense method of your ROBOT class.
+        Specifically, you are trying to call SENSOR.Get_Value(timeStep)
+        as if it were a static method, but it is an instance method.
+        You should call Get_Value on each instance of SENSOR stored in self.sensors.
+        for i in self.sensors:
+            self.sensors[i] = SENSOR.Get_Value(timeStep)
+        pass"""
 
         for sensor in self.sensors.values():
             sensor.Get_Value(timeStep)
@@ -42,7 +42,10 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
         pass
 
-    def Act(self):
+    def Act(self, timeStep):
+        """When the tutorial mentions passing the instance down into Set_Value(),
+        it means you should pass self (which contains self.robotId) to the MOTOR
+        class's Set_Value() method. This way, the MOTOR class can access the robot instance."""
         for motor in self.motors.values():
-            motor.Set_Value()
+            motor.Set_Value(timeStep,self)
         pass

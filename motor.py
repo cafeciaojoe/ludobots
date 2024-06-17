@@ -5,6 +5,8 @@ import numpy
 import pyrosim.pyrosim as pyrosim
 import constants as c
 
+import pybullet as p
+
 class MOTOR:
 
     def __init__(self, jointName):
@@ -27,41 +29,34 @@ class MOTOR:
         self.TargetAngleMin = c.TargetAngleMin
         self.TargetAngleMax = c.TargetAngleMax
 
-        self.frontLegTargetAngles = self.amplitude * numpy.sin(
+        self.motorValues = self.amplitude * numpy.sin(
             self.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
                                          endpoint=True) + self.offset)
-        self.backLegTargetAngles = c.amplitude * numpy.sin(
-            c.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
-                                         endpoint=True) + self.offset)
 
-    def Set_Value(self):
-        pass
+        # print(id(self),self.motorValues)
+        #
+        # self.frontLegTargetAngles = self.amplitude * numpy.sin(
+        #     self.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
+        #                                  endpoint=True) + self.offset)
+        # self.backLegTargetAngles = c.amplitude * numpy.sin(
+        #     c.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
+        #                                  endpoint=True) + self.offset)
 
-        # pyrosim.Set_Motor_For_Joint(
-        #
-        #     bodyIndex=robotId,
-        #
-        #     jointName="Torso_FrontLeg",
-        #
-        #     controlMode=p.POSITION_CONTROL,
-        #
-        #     # the desired angle between the two links connected by the joint
-        #     targetPosition=frontLegTargetAngles[i],
-        #
-        #     maxForce=c.frontLegForceMax)
-        #
-        # pyrosim.Set_Motor_For_Joint(
-        #
-        #     bodyIndex=robotId,
-        #
-        #     jointName="Torso_BackLeg",
-        #
-        #     controlMode=p.POSITION_CONTROL,
-        #
-        #     # the desired angle between the two links connected by the joint
-        #     targetPosition=backLegTargetAngles[i],
-        #
-        #     maxForce=c.frontLegForceMax)
-        #
+    def Set_Value(self, timeStep, robot):
+        #print('set_value timestep and robot id',timeStep, robot)
+        pyrosim.Set_Motor_For_Joint(
+
+            bodyIndex=robot.robotId,
+
+            jointName=self.jointName,
+
+            controlMode=p.POSITION_CONTROL,
+
+            # the desired angle between the two links connected by the joint
+            targetPosition = self.motorValues[timeStep],
+            #targetLocation = self.motorValues[timeStep],
+
+            maxForce=c.frontLegForceMax)
+
         pass
 

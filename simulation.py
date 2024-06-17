@@ -47,11 +47,7 @@ class SIMULATION:
             #print(i)
             p.stepSimulation()
             self.robot.Sense(t)
-            self.robot.Act()
-            # # print(backLegSensorValues[i],frontLegSensorValues[t])
-            #
-            # # During each step of the simulation, we are going to simulate a motor that supplies force to one of the robot's joints. To do so, add this statement
-
+            self.robot.Act(t)
             time.sleep(c.loopSleep)
 
     #https://www.geeksforgeeks.org/destructors-in-python/

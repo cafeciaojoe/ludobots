@@ -30,9 +30,15 @@ class MOTOR:
         self.TargetAngleMin = c.TargetAngleMin
         self.TargetAngleMax = c.TargetAngleMax
 
-        self.motorValues = self.amplitude * numpy.sin(
-            self.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
-                                         endpoint=True) + self.offset)
+        if self.jointName == "Torso_BackLeg":
+            print(self.frequency/2)
+            self.motorValues = self.amplitude * numpy.sin(
+                self.frequency/2 * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
+                                     endpoint=True) + self.offset)
+        else:
+            self.motorValues = self.amplitude * numpy.sin(
+                self.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
+                                     endpoint=True) + self.offset)
 
         # print(id(self),self.motorValues)
         #

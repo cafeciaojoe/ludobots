@@ -18,6 +18,9 @@ def Create_World():
     pyrosim.End()
 
 def Create_Robot():
+    pass
+
+def Generate_Body():
     #Joints with no upstream joint have absolute positions. Every other joint has a position relative to its upstream joint.
     #so both of these joints need to be absolute!!!
     #https://docs.google.com/presentation/d/1zvZzFyTf8PBNjzQZx_gZk84aUntZo2bUKhpe78yT4OY/edit#slide=id.g10dad2fba23_2_371
@@ -31,3 +34,4 @@ def Create_Robot():
 
 Create_World()
 Create_Robot()
+Generate_Body()

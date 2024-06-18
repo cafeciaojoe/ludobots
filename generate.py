@@ -20,6 +20,20 @@ def Create_World():
 def Create_Robot():
     pass
 
+def Generate_Brian():
+    """Note: urdf files are a broadly-used file format in the robotics community. nndf files, in contrast,
+    are specific to pyrosim, our in-house python robotics simulator. nndf files are designed to shorten the
+    time it takes you to simulate a neural network-controlled robot."""
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+
+    """As the name implies, sensor neurons receive values from sensors. We are going to name our neurons with numbers, 
+    because we are going to update the values of each neuron in our neural network, every simulation time step, in a 
+    specific order: sensor neurons first, hidden neurons next, and finally motor neurons.
+    This particular neuron is going to receive a value from sensor stored in Torso."""
+
+    pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
+    pyrosim.End()
+
 def Generate_Body():
     #Joints with no upstream joint have absolute positions. Every other joint has a position relative to its upstream joint.
     #so both of these joints need to be absolute!!!
@@ -35,3 +49,4 @@ def Generate_Body():
 Create_World()
 Create_Robot()
 Generate_Body()
+Generate_Brian()

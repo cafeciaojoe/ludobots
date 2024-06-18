@@ -31,9 +31,16 @@ def Generate_Brian():
     specific order: sensor neurons first, hidden neurons next, and finally motor neurons.
     This particular neuron is going to receive a value from sensor stored in Torso."""
 
+    # sensors and sensor neurons go on links
     pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
     pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
     pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+
+    # motors and motor neurons go on joints
+    # note: Note that this motor neuron will send values to the motor controlling joint Torso_BackLeg
+    pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
+    pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+
     pyrosim.End()
 
 def Generate_Body():

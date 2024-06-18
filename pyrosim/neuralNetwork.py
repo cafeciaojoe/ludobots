@@ -31,6 +31,8 @@ class NEURAL_NETWORK:
     def Update(self):
         for neuronName in self.neurons.keys():
             if self.neurons[neuronName].Is_Sensor_Neuron():
+                # the values from the sensors are being copied into
+                # the three sensor neurons during each simulation time step.
                 self.neurons[neuronName].Update_Sensor_Neuron()
             # note: the neurons are names using numbers
             #print(f'self.neurons.keys() = {neurons}')

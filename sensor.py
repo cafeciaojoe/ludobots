@@ -16,7 +16,7 @@ class SENSOR:
     def Get_Value(self,timeStep):
         self.sensorValues[timeStep] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
         # at the end of the loop print all the recorded sensor values
-        # TODO I dont know why we are not justs saving the file at the end of the loops, seems more elegant that make a "save_values" function
+        # TODO I dont know why we are not justs saving the file at the end of the loops, seems more elegant that make a "save_values" function3
         # if timeStep >= c.loops-1:
         #     print(self.values)
 

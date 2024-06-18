@@ -28,6 +28,10 @@ class NEURAL_NETWORK:
 
         print("")
 
+    def Update(self):
+        for neurons in self.neurons.keys():
+            # note: the neurons are names using numbers
+            print(f'self.neurons.keys() = {neurons}')
 # ---------------- Private methods --------------------------------------
 
     def Add_Neuron_According_To(self,line):

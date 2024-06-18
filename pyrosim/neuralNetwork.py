@@ -34,8 +34,10 @@ class NEURAL_NETWORK:
                 # the values from the sensors are being copied into
                 # the three sensor neurons during each simulation time step.
                 self.neurons[neuronName].Update_Sensor_Neuron()
-            # note: the neurons are names using numbers
-            #print(f'self.neurons.keys() = {neurons}')
+            else:
+                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron()
+
+
 # ---------------- Private methods --------------------------------------
 
     def Add_Neuron_According_To(self,line):

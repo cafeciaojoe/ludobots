@@ -32,6 +32,8 @@ def Generate_Brian():
     This particular neuron is going to receive a value from sensor stored in Torso."""
 
     pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
+    pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
+    pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
     pyrosim.End()
 
 def Generate_Body():

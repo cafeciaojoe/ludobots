@@ -29,9 +29,11 @@ class NEURAL_NETWORK:
         print("")
 
     def Update(self):
-        for neurons in self.neurons.keys():
+        for neuronName in self.neurons.keys():
+            if self.neurons[neuronName].Is_Sensor_Neuron():
+                self.neurons[neuronName].Update_Sensor_Neuron()
             # note: the neurons are names using numbers
-            print(f'self.neurons.keys() = {neurons}')
+            #print(f'self.neurons.keys() = {neurons}')
 # ---------------- Private methods --------------------------------------
 
     def Add_Neuron_According_To(self,line):

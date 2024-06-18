@@ -54,12 +54,17 @@ class ROBOT:
         pass
 
     def Act(self, timeStep):
-        """When the tutorial mentions passing the instance down into Set_Value(),
-        it means you should pass self (which contains self.robotId) to the MOTOR
-        class's Set_Value() method. This way, the MOTOR class can access the robot instance."""
-        for motor in self.motors.values():
-            motor.Set_Value(timeStep,self)
-        pass
+        for neuronName in self.nn.Get_Neuron_Names():
+            if self.nn.Is_Motor_Neuron(neuronName):
+                print(neuronName)
+
+        # """When the tutorial mentions passing the instance down into Set_Value(),
+        # it means you should pass self (which contains self.robotId) to the MOTOR
+        # class's Set_Value() method. This way, the MOTOR class can access the robot instance."""
+        # for motor in self.motors.values():
+        #     motor.Set_Value(timeStep,self)
+        # pass
+
 
     def Save_Values(self):
         for sensor in self.sensors.values():

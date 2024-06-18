@@ -37,6 +37,14 @@ class NEURAL_NETWORK:
             else:
                 self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron()
 
+    def Get_Neuron_Names(self):
+        return self.neurons.keys()
+
+    def Is_Motor_Neuron(self, neuronName):
+        # neuralNetwork.py has a dict of NERON classes already loaded from the .nndf,
+        # self.neurons[neuronName] is the NEURON instance you want to check
+        # just have to run a check on the specific dict entry using the Is_Motor_Neuron() method
+        return self.neurons[neuronName].Is_Motor_Neuron()
 
 # ---------------- Private methods --------------------------------------
 

@@ -57,7 +57,9 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                print(f'the neuron name is: {neuronName}')
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                print(f'the motor neuron name is: {neuronName}')
+                print(f'the motor neuron value is: {desiredAngle}')
                 print(f'the corresponding joint name is: {jointName}')
 
         # """When the tutorial mentions passing the instance down into Set_Value(),

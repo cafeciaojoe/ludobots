@@ -49,7 +49,7 @@ class MOTOR:
         #     c.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
         #                                  endpoint=True) + self.offset)
 
-    def Set_Value(self, timeStep, robot):
+    def Set_Value(self, desiredAngle, robot):
         #print('set_value timestep and robot id',timeStep, robot)
         pyrosim.Set_Motor_For_Joint(
 
@@ -60,7 +60,7 @@ class MOTOR:
             controlMode=p.POSITION_CONTROL,
 
             # the desired angle between the two links connected by the joint
-            targetPosition = self.motorValues[timeStep],
+            targetPosition = desiredAngle,
             #targetLocation = self.motorValues[timeStep],
 
             maxForce=c.frontLegForceMax)

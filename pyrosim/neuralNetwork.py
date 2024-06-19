@@ -46,6 +46,9 @@ class NEURAL_NETWORK:
         # just have to run a check on the specific dict entry using the Is_Motor_Neuron() method
         return self.neurons[neuronName].Is_Motor_Neuron()
 
+    def Get_Motor_Neurons_Joint(self, neuronName):
+        return self.neurons[neuronName].Get_Joint_Name()
+
 # ---------------- Private methods --------------------------------------
 
     def Add_Neuron_According_To(self,line):

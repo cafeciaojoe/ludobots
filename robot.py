@@ -56,7 +56,9 @@ class ROBOT:
     def Act(self, timeStep):
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
-                print(neuronName)
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                print(f'the neuron name is: {neuronName}')
+                print(f'the corresponding joint name is: {jointName}')
 
         # """When the tutorial mentions passing the instance down into Set_Value(),
         # it means you should pass self (which contains self.robotId) to the MOTOR

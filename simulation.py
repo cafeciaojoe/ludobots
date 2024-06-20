@@ -53,5 +53,5 @@ class SIMULATION:
 
     #https://www.geeksforgeeks.org/destructors-in-python/
     def __del__(self):
-        self.robot.Save_Values()
+        #self.robot.Save_Values()
         p.disconnect()

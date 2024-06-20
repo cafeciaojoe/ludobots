@@ -71,7 +71,7 @@ class NEURON:
         self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName))
 
     def Update_Hidden_Or_Motor_Neuron(self):
-        self.Set_Value(0)
+        self.Set_Value(0.0)
         pass
 
 

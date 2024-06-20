@@ -59,21 +59,14 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(desiredAngle, self)
-                print(f'the motor neuron name is: {neuronName}')
-                print(f'the motor neuron value is: {desiredAngle}')
-                print(f'the corresponding joint name is: {jointName}')
-
-        # """When the tutorial mentions passing the instance down into Set_Value(),
-        # it means you should pass self (which contains self.robotId) to the MOTOR
-        # class's Set_Value() method. This way, the MOTOR class can access the robot instance."""
-        # for motor in self.motors.values():
-        #     motor.Set_Value(timeStep,self)
-        # pass
+                # print(f'the motor neuron name is: {neuronName}')
+                # print(f'the motor neuron value is: {desiredAngle}')
+                # print(f'the corresponding joint name is: {jointName}')
 
 
-    def Save_Values(self):
-        for sensor in self.sensors.values():
-            sensor.Save_Values()
-
-        for motor in self.motors.values():
-            motor.Save_Values()
+    # def Save_Values(self):
+    #     for sensor in self.sensors.values():
+    #         sensor.Save_Values()
+    #
+    #     for motor in self.motors.values():
+    #         motor.Save_Values()

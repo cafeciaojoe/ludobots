@@ -13,41 +13,7 @@ class MOTOR:
     def __init__(self, jointName):
         self.jointName = jointName
         self.motorValues = numpy.zeros(c.loops)
-        self.Prepare_To_Act()
         pass
-
-    def Prepare_To_Act(self):
-        # The Prepare_To_Act method in the MOTOR class is more specific.
-        # It prepares an individual motor for action. This could involve
-        # initializing motor-specific parameters such as amplitude, frequency,
-        # and phase offset, and setting up any internal data structures needed for motor control.
-
-        self.amplitude = c.amplitude
-        self.frequency = c.frequency
-        self.offset = c.offset
-
-        #not needed maybe?
-        self.TargetAngleMin = c.TargetAngleMin
-        self.TargetAngleMax = c.TargetAngleMax
-
-        if self.jointName == "Torso_BackLeg":
-            print(self.frequency/2)
-            self.motorValues = self.amplitude * numpy.sin(
-                self.frequency/2 * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
-                                     endpoint=True) + self.offset)
-        else:
-            self.motorValues = self.amplitude * numpy.sin(
-                self.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
-                                     endpoint=True) + self.offset)
-
-        # print(id(self),self.motorValues)
-        #
-        # self.frontLegTargetAngles = self.amplitude * numpy.sin(
-        #     self.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
-        #                                  endpoint=True) + self.offset)
-        # self.backLegTargetAngles = c.amplitude * numpy.sin(
-        #     c.frequency * numpy.linspace(self.TargetAngleMin, self.TargetAngleMax, num=c.loops,
-        #                                  endpoint=True) + self.offset)
 
     def Set_Value(self, desiredAngle, robot):
         #print('set_value timestep and robot id',timeStep, robot)
@@ -65,7 +31,7 @@ class MOTOR:
 
             maxForce=c.frontLegForceMax)
 
-    def Save_Values(self):
-        print('saving ', self.jointName, ' motor values')
-        numpy.save(os.path.join('data', (self.jointName + '_motor')), self.motorValues)
+    # def Save_Values(self):
+    #     print('saving ', self.jointName, ' motor values')
+    #     numpy.save(os.path.join('data', (self.jointName + '_motor')), self.motorValues)
 

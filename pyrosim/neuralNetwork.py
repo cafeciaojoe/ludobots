@@ -18,14 +18,6 @@ class NEURAL_NETWORK:
 
         f.close()
 
-        # This dictionary contains one key, to the left of the colon.
-        # The value, to the right of the colon, is an instance of a class we have not seen yet: SYNAPSE.
-        # The key is a tuple with two entries in it: these are the names of the two neurons the synapse
-        # connects: 0 and 3 are the names of the presynaptic and postsynaptic neurons, respectively.
-        print(self.synapses)
-
-        exit()
-
     def Print(self):
 
         self.Print_Sensor_Neuron_Values()
@@ -37,13 +29,15 @@ class NEURAL_NETWORK:
         print("")
 
     def Update(self):
+        # Note that this function updates sensor neurons, and hidden and motor neurons, differently:
+        # values for sensor neurons come from sensors; values for hidden and motor neurons come from other neurons.
         for neuronName in self.neurons.keys():
             if self.neurons[neuronName].Is_Sensor_Neuron():
                 # the values from the sensors are being copied into
                 # the three sensor neurons during each simulation time step.
                 self.neurons[neuronName].Update_Sensor_Neuron()
             else:
-                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron()
+                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
 
     def Get_Neuron_Names(self):
         return self.neurons.keys()

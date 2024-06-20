@@ -41,6 +41,8 @@ def Generate_Brian():
     pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
     pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
+    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=3, weight=1.0)
+
     pyrosim.End()
 
 def Generate_Body():
@@ -56,6 +58,5 @@ def Generate_Body():
     pyrosim.End()
 
 Create_World()
-Create_Robot()
 Generate_Body()
 Generate_Brian()

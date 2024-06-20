@@ -18,6 +18,14 @@ class NEURAL_NETWORK:
 
         f.close()
 
+        # This dictionary contains one key, to the left of the colon.
+        # The value, to the right of the colon, is an instance of a class we have not seen yet: SYNAPSE.
+        # The key is a tuple with two entries in it: these are the names of the two neurons the synapse
+        # connects: 0 and 3 are the names of the presynaptic and postsynaptic neurons, respectively.
+        print(self.synapses)
+
+        exit()
+
     def Print(self):
 
         self.Print_Sensor_Neuron_Values()

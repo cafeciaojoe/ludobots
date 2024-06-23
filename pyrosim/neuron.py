@@ -72,8 +72,16 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
         self.Set_Value(0.0)
-        print(f'neurons: {neurons} / Synapses: {synapses}')
-        exit()
+        print(f'currently updating neuron: {self.Get_Name()}')
+        for synapse in synapses:
+            # checks to see if the current synapse arrives at the neuron being updated.
+            # does so by checking if the postsynaptic neuron "synapse[1]" is equal to
+            # self.Get_Name() which returns the name of the neuro associated with the instance
+            # of the neuron class the funciton is in. This name is read from the nndf file when the class is initiated.
+            if synapse[1] == self.Get_Name():
+                print(f'presynaptic neuron: {synapse[0]}')
+                print(f'postsynaptic neuron: {synapse[1]}')
+
 
 
 # -------------------------- Private methods -------------------------

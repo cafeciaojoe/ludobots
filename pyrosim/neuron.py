@@ -72,7 +72,7 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
         self.Set_Value(0.0)
-        print(f'currently updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
+        #print(f'currently updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
         for synapse in synapses:
             # checks to see if the current synapse arrives at the neuron being updated.
             # does so by checking if the postsynaptic neuron "synapse[1]" (ie where the synapse is connecting to)
@@ -87,9 +87,10 @@ class NEURON:
                 ##The first element of the key's tuple is the presynaptic neuron's name. neurons[name] returns an instance
                 # of NEURON. neurons[name].Get_Value() gets the current value of this neuron.
                 self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[synapse].Get_Weight(), neurons[synapse[0]].Get_Value())
-
-        print(f'finished updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
-        exit()
+       # With enough incoming synapses, a neuron may thus take on very positive or very negative numbers. Let us thus
+        # threshold the value of each neuron using an activation function to the range [-1,1].
+        self.Threshold()
+        #print(f'finished updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
 
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, synapse_weight, presynaptic_neuron_value):
         print(synapse_weight, presynaptic_neuron_value)

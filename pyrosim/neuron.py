@@ -72,19 +72,30 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
         self.Set_Value(0.0)
-        print(f'currently updating neuron: {self.Get_Name()}')
+        print(f'currently updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
         for synapse in synapses:
             # checks to see if the current synapse arrives at the neuron being updated.
             # does so by checking if the postsynaptic neuron "synapse[1]" (ie where the synapse is connecting to)
             # is equal to self.Get_Name() which returns the name of the neuron associated with the instance
             # of the neuron class that this funciton is in. This name is read from the nndf file when the class is initiated.
             if synapse[1] == self.Get_Name():
-                print(f'presynaptic neuron: {synapse[0]}')
-                print(f'postsynaptic neuron: {synapse[1]}')
-                exit()
+                #argument 1
+                ## You have the key that references this synapse in the synapses dictionary. synapses[key] is an instance
+                # of SYNAPSE; synapses[key].Get_Weight() will return the weight of the synapse.
 
-    def Allow_Presynaptic_Neuron_To_Influence_Me(self):
-        pass
+                #argument 2
+                ##The first element of the key's tuple is the presynaptic neuron's name. neurons[name] returns an instance
+                # of NEURON. neurons[name].Get_Value() gets the current value of this neuron.
+                self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[synapse].Get_Weight(), neurons[synapse[0]].Get_Value())
+
+        print(f'finished updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
+        exit()
+
+    def Allow_Presynaptic_Neuron_To_Influence_Me(self, synapse_weight, presynaptic_neuron_value):
+        print(synapse_weight, presynaptic_neuron_value)
+        product = synapse_weight * presynaptic_neuron_value
+        #the argument to this function is added to the neuron. this funciton exisits within an instance of the neuron class. each instance of the class is a neuron in the neual net.
+        self.Add_To_Value(product)
 
 # -------------------------- Private methods -------------------------
 

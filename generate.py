@@ -6,6 +6,8 @@ simulate.py will then read it in and simulate it.
 """
 
 import pyrosim.pyrosim as pyrosim
+import random
+
 
 length = 1
 width = 1
@@ -24,40 +26,28 @@ def Generate_Brian():
     """Note: urdf files are a broadly-used file format in the robotics community. nndf files, in contrast,
     are specific to pyrosim, our in-house python robotics simulator. nndf files are designed to shorten the
     time it takes you to simulate a neural network-controlled robot."""
+
     pyrosim.Start_NeuralNetwork("brain.nndf")
 
-    """As the name implies, sensor neurons receive values from sensors. We are going to name our neurons with numbers, 
-    because we are going to update the values of each neuron in our neural network, every simulation time step, in a 
-    specific order: sensor neurons first, hidden neurons next, and finally motor neurons.
-    This particular neuron is going to receive a value from sensor stored in Torso."""
+    # Define sensor neurons
+    sensor_neurons = [0, 1, 2]
+    for i, link_name in enumerate(["Torso", "BackLeg", "FrontLeg"]):
+        pyrosim.Send_Sensor_Neuron(name=sensor_neurons[i], linkName=link_name)
 
-    # sensors and sensor neurons go on links
-    pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
-    pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
-    pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+    # Define motor neurons
+    motor_neurons = [3, 4]
+    motor_joints = ["Torso_BackLeg", "Torso_FrontLeg"]
+    for i, joint_name in enumerate(motor_joints):
+        pyrosim.Send_Motor_Neuron(name=motor_neurons[i], jointName=joint_name)
 
-    # motors and motor neurons go on joints
-    # note: Note that this motor neuron will send values to the motor controlling joint Torso_BackLeg
-    pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
-    pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+    # Create synapses between each sensor neuron and each motor neuron
+    for sensor in sensor_neurons:
+        for motor in motor_neurons:
 
-    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=4, weight=1.0)
-    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=2.0)
-    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=3.0)
-    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=4, weight=1.0)
-    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=2.0)
-    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=3.0)
-    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=4, weight=1.0)
-    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=2.0)
-    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=3.0)
-    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=4, weight=1.0)
-    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=2.0)
-    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=3.0)
-
-
-
+            pyrosim.Send_Synapse(sourceNeuronName=sensor, targetNeuronName=motor, weight=random.uniform(-1,1))
 
     pyrosim.End()
+
 
 def Generate_Body():
     #Joints with no upstream joint have absolute positions. Every other joint has a position relative to its upstream joint.

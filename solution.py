@@ -1,4 +1,7 @@
 import numpy
+import pyrosim.pyrosim as pyrosim
+import random
+
 
 """Note that the weights matrix should be taller than it is wide (three rows and two columns). If you want the weight
  of the synapse that connects the third sensor neuron to the second motor neuron, for example, you would "walk down" 
@@ -13,8 +16,53 @@ class SOLUTION():
     def __init__(self):
         #Create an array of the given shape (n dimensions) and populate it with random samples from a uniform distribution over [0, 1).
         self.weights = numpy.random.rand(3,2)
-        print(self.weights)
         self.weights= self.weights*2-1
-        print(self.weights)
-        exit()
         pass
+
+    def Evaluate(self):
+        self.Create_World()
+        self.Create_Body()
+        self.Create_Brain()
+        pass
+
+    def Create_World(self):
+        pyrosim.Start_SDF("world.sdf")
+        length = 1
+        width = 1
+        height = 1
+        pyrosim.Send_Cube(name="Box", pos=[-3, -3, height / 2], size=[length, width, height])
+        pyrosim.End()
+
+    def Create_Body(self):
+        # Joints with no upstream joint have absolute positions. Every other joint has a position relative to its upstream joint.
+        # so both of these joints need to be absolute!!!
+        # https://docs.google.com/presentation/d/1zvZzFyTf8PBNjzQZx_gZk84aUntZo2bUKhpe78yT4OY/edit#slide=id.g10dad2fba23_2_371
+        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Send_Cube(name="Torso", pos=[1.5, 0, 1.5], size=[1, 1, 1])
+        pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[1, 0, 1])
+        pyrosim.Send_Cube(name="BackLeg", pos=[-.5, 0, -.5], size=[1, 1, 1])
+        pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute", position=[2, 0, 1])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[.5, 0, -.5], size=[1, 1, 1])
+        pyrosim.End()
+
+    def Create_Brain(self):
+        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Send_Sensor_Neuron(name= '0', linkName="Torso")
+        pyrosim.Send_Sensor_Neuron(name= '1', linkName="BackLeg")
+        pyrosim.Send_Sensor_Neuron(name= '2', linkName="FrontLeg")
+        pyrosim.Send_Motor_Neuron(name= '3', jointName='Torso_BackLeg')
+        pyrosim.Send_Motor_Neuron(name= '4', jointName='Torso_FrontLeg')
+
+        num_sensor_neurons = 2
+        num_motor_neurons = 3
+        first_motor_neurons = num_sensor_neurons +1
+
+        for currentRow in range(num_motor_neurons):
+            for currentColumn in range(num_sensor_neurons):
+                pyrosim.Send_Synapse(
+                    sourceNeuronName=str(currentRow),
+                    targetNeuronName=str(first_motor_neurons+currentColumn),
+                    weight=self.weights[currentRow, currentColumn]
+                )
+
+        pyrosim.End()

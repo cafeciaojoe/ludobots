@@ -40,7 +40,7 @@ def Generate_Brian():
     for i, joint_name in enumerate(motor_joints):
         pyrosim.Send_Motor_Neuron(name=motor_neurons[i], jointName=joint_name)
 
-    # Create synapses between each sensor neuron and each motor neuron
+    # Create randomly weighted synapses between each sensor neuron and each motor neuron
     for sensor in sensor_neurons:
         for motor in motor_neurons:
 

@@ -63,6 +63,15 @@ class ROBOT:
                 # print(f'the motor neuron value is: {desiredAngle}')
                 # print(f'the corresponding joint name is: {jointName}')
 
+    def Get_Fitness(self):
+        # in 37 L "hll climber, self.robotId is reffered to as just self.robot
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        print(stateOfLinkZero)
+        print(positionOfLinkZero[0])
+        exit()
+
+
 
     # def Save_Values(self):
     #     for sensor in self.sensors.values():

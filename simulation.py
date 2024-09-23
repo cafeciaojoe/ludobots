@@ -51,6 +51,10 @@ class SIMULATION:
             self.robot.Act(t)
             time.sleep(c.loopSleep)
 
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
+        pass
+
     #https://www.geeksforgeeks.org/destructors-in-python/
     def __del__(self):
         #self.robot.Save_Values()

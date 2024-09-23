@@ -1,6 +1,7 @@
 import numpy
 import pyrosim.pyrosim as pyrosim
 import random
+import  os
 
 
 """Note that the weights matrix should be taller than it is wide (three rows and two columns). If you want the weight
@@ -16,13 +17,14 @@ class SOLUTION():
     def __init__(self):
         #Create an array of the given shape (n dimensions) and populate it with random samples from a uniform distribution over [0, 1).
         self.weights = numpy.random.rand(3,2)
-        self.weights= self.weights*2-1
+        self.weights = self.weights*2-1
         pass
 
     def Evaluate(self):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
+        os.system("python3 simulate.py")
         pass
 
     def Create_World(self):
@@ -57,11 +59,12 @@ class SOLUTION():
         num_motor_neurons = 3
         first_motor_neurons = num_sensor_neurons +1
 
+        #2 x 3 = 6 synapses. each motor connected to each neuron.
         for currentRow in range(num_motor_neurons):
             for currentColumn in range(num_sensor_neurons):
                 pyrosim.Send_Synapse(
                     sourceNeuronName=str(currentRow),
-                    targetNeuronName=str(first_motor_neurons+currentColumn),
+                    targetNeuronName=str(currentColumn + first_motor_neurons),
                     weight=self.weights[currentRow, currentColumn]
                 )
 

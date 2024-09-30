@@ -17,7 +17,6 @@ offset = 0
 TargetAngleMin = 0
 TargetAngleMax = 2*math.pi
 
-
 amplitudeFrontLeg = math.pi/4
 frequencyFrontLeg = 10
 phaseOffsetFrontLeg = 0
@@ -34,4 +33,6 @@ backLegTargetAngleMax = 2*math.pi
 
 frontLegForceMax = 50
 backLegForceMax = 50
+
+numberOfGenerations = 2 
 

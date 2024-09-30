@@ -67,8 +67,12 @@ class ROBOT:
         # in 37 L "hll climber, self.robotId is reffered to as just self.robot
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
-        print(stateOfLinkZero)
-        print(positionOfLinkZero[0])
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        #print(stateOfLinkZero)
+        #print(positionOfLinkZero[0])
+        with open("fitness.txt", "w") as f:
+            f.write(str(xCoordinateOfLinkZero))
+            f.close()
         exit()
 
 

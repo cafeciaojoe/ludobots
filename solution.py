@@ -17,6 +17,9 @@ class SOLUTION():
     def __init__(self):
         #Create an array of the given shape (n dimensions) and populate it with random samples from a uniform distribution over [0, 1).
         self.weights = numpy.random.rand(3,2)
+        # multiply this whole matrix by two and subtract one to scale each weight to the range [-1,+1]. Store it back in the same variable. 
+        # Note that you do not have to do so by creating two nested for loops and performing element-wise operations. Instead, you can do 
+        # this in just one line with self.weights * 2 - 1. When you do the latter, you are performing vector operations.
         self.weights = self.weights*2-1
         pass
 
@@ -27,7 +30,6 @@ class SOLUTION():
         os.system("python3 simulate.py")
         with open("fitness.txt", "r") as f:
             self.fitness = float(f.read())
-            print(self.fitness)
             f.close()
 
     def Create_World(self):
@@ -72,3 +74,8 @@ class SOLUTION():
                 )
 
         pyrosim.End()
+
+    def Mutate(self):
+        randomRow = random.randint(0,2)
+        randomColumn = random.randint(0,1)
+        self.weights[randomRow,randomColumn] = random.random()*2-1

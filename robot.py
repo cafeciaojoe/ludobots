@@ -73,7 +73,6 @@ class ROBOT:
         with open("fitness.txt", "w") as f:
             f.write(str(xCoordinateOfLinkZero))
             f.close()
-        exit()
 
 
 

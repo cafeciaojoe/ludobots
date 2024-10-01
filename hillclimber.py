@@ -13,12 +13,11 @@ class HILL_CLIMBER:
         for currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
             
-
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
         self.child.Evaluate()
-        exit()
+        self.Print()
         self.Select()
 
     def Spawn(self):
@@ -32,5 +31,8 @@ class HILL_CLIMBER:
     def Select(self):
         pass
 
+    def Print(self):
+        print(f"parent.fitness: {self.parent.fitness} child.fitness: {self.child.fitness}")
+        
 
 

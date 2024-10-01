@@ -20,7 +20,10 @@ import constants as c
 class SIMULATION:
 
     def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+
+        # running the sim "blind"
+        self.physicsClient = p.connect(p.DIRECT)
+        #self.physicsClient = p.connect(p.GUI)
         # this line allows the use of an existing asset, ie a floor e.g. plane.udrf
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 

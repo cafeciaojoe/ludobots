@@ -93,7 +93,7 @@ class NEURON:
         #print(f'finished updating neuron: {self.Get_Name()}, its value is: {self.Get_Value()}')
 
     def Allow_Presynaptic_Neuron_To_Influence_Me(self, synapse_weight, presynaptic_neuron_value):
-        print(synapse_weight, presynaptic_neuron_value)
+        #print(f"synapse_weight: {synapse_weight}, presynaptic_neuron_value: {presynaptic_neuron_value}")
         product = synapse_weight * presynaptic_neuron_value
         #the argument to this function is added to the neuron. this funciton exisits within an instance of the neuron class. each instance of the class is a neuron in the neual net.
         self.Add_To_Value(product)

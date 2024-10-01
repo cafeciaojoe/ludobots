@@ -45,7 +45,7 @@ class ROBOT:
 
     def think(self):
         self.nn.Update()
-        self.nn.Print()
+        #self.nn.Print()
 
     def Prepare_To_Act(self):
         self.motors = {}

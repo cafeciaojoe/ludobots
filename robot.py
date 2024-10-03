@@ -63,6 +63,7 @@ class ROBOT:
                 # print(f'the motor neuron value is: {desiredAngle}')
                 # print(f'the corresponding joint name is: {jointName}')
 
+    # this should be called "export fitness" because when it is called nothing is done with the vlaue. 
     def Get_Fitness(self):
         # in 37 L "hll climber, self.robotId is reffered to as just self.robot
         stateOfLinkZero = p.getLinkState(self.robotId, 0)

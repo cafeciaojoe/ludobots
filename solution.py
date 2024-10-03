@@ -23,13 +23,13 @@ class SOLUTION():
         self.weights = self.weights*2-1
         pass
 
-    def Evaluate(self):
+    def Evaluate(self,directOrGUI):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
         # i am still not sure why this is run seperately and not imported as a module 
         # i guess you dont need an instance of SIMULATION with every deep copy of HILL_CLIMBER
-        os.system("python3 simulate.py DIRECT")
+        os.system("python3 simulate.py " + directOrGUI)
         with open("fitness.txt", "r") as f:
             self.fitness = float(f.read())
             f.close()

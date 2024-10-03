@@ -9,14 +9,14 @@ class HILL_CLIMBER:
         pass
 
     def evolve(self):
-        self.parent.Evaluate()
+        self.parent.Evaluate("DIRECT")
         for currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
             
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate()
+        self.child.Evaluate("DIRECT")
         self.Print()
         self.Select()
 

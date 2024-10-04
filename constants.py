@@ -34,5 +34,5 @@ backLegTargetAngleMax = 2*math.pi
 frontLegForceMax = 50
 backLegForceMax = 50
 
-numberOfGenerations = 10
+numberOfGenerations = 20
 

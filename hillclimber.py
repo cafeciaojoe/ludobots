@@ -9,7 +9,7 @@ class HILL_CLIMBER:
         pass
 
     def evolve(self):
-        self.parent.Evaluate("DIRECT")
+        self.parent.Evaluate("GUI")
         for currentGeneration in range(0,c.numberOfGenerations):
             self.Evolve_For_One_Generation()
             
@@ -29,11 +29,14 @@ class HILL_CLIMBER:
         #print(f"child weights: {self.child.weights}")
 
     def Select(self):
-        pass
+        if self.parent.fitness > self.child.fitness:
+            self.parent = self.child
 
     def Print(self):
-
         print(f"\nparent.fitness: {self.parent.fitness} child.fitness: {self.child.fitness}")
         
+    def Show_Best(self):
+        self.parent.Evaluate("GUI")
+
 
 

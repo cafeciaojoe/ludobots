@@ -36,3 +36,5 @@ backLegForceMax = 50
 
 numberOfGenerations = 20
 
+populationSize = 2
+

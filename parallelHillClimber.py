@@ -5,8 +5,13 @@ import copy
 class PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
-        #self.parent = solution.SOLUTION()
-        pass
+        self.parents = {}
+
+        for parent in range(0,c.populationSize):
+            self.parents[parent] = solution
+
+        print(self.parents)
+        
 
     def evolve(self):
         # self.parent.Evaluate("GUI")

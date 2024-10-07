@@ -21,6 +21,8 @@ class SIMULATION:
 
     def __init__(self, directOrGUI):
 
+        self.directOrGUI = directOrGUI
+
         if directOrGUI == "DIRECT":
             # running the sim "blind"
             self.physicsClient = p.connect(p.DIRECT)
@@ -56,7 +58,8 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.think()
             self.robot.Act(t)
-            time.sleep(c.loopSleep)
+            if self.directOrGUI == "GUI":
+                time.sleep(c.loopSleep)
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()

@@ -1,7 +1,7 @@
 import numpy
 import pyrosim.pyrosim as pyrosim
 import random
-import  os
+import os
 
 
 """Note that the weights matrix should be taller than it is wide (three rows and two columns). If you want the weight
@@ -29,7 +29,9 @@ class SOLUTION():
         self.Create_Brain()
         # i am still not sure why this is run seperately and not imported as a module 
         # i guess you dont need an instance of SIMULATION with every deep copy of HILL_CLIMBER
-        os.system("python3 simulate.py " + directOrGUI)
+
+        #background process
+        os.system("python3 simulate.py " + directOrGUI + " &")
         with open("fitness.txt", "r") as f:
             self.fitness = float(f.read())
             f.close()

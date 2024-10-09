@@ -7,18 +7,20 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         self.parents = {}
 
-        for parent in range(0,c.populationSize):
+        for parent_no in range(0,c.populationSize):
             # in the dictionary "parents", there is a key which is the int variable "parent"
             # that corresponds to an instance of the class "SOLUTION"
             # which is from the module "solution" imported from the top of the file. 
             # you need state "SOLUTION()" not "SOLUTION"
             # if you do the latter then you dont make instance but a direct reference which could chaneg the actual class
-            self.parents[parent] = solution.SOLUTION()
+            self.parents[parent_no] = solution.SOLUTION()
 
         print(self.parents)
         
 
     def evolve(self):
+        for parent_no in self.parents:
+            self.parents[parent_no].Evaluate("GUI")
         # self.parent.Evaluate("GUI")
         # for currentGeneration in range(0,c.numberOfGenerations):
         #     self.Evolve_For_One_Generation()

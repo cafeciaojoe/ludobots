@@ -14,13 +14,14 @@ operations. Instead, you can do this in just one line with self.weights * 2 - 1.
 performing vector operations."""
 
 class SOLUTION():
-    def __init__(self):
+    def __init__(self,nextAvailableID):
         #Create an array of the given shape (n dimensions) and populate it with random samples from a uniform distribution over [0, 1).
         self.weights = numpy.random.rand(3,2)
         # multiply this whole matrix by two and subtract one to scale each weight to the range [-1,+1]. Store it back in the same variable. 
         # Note that you do not have to do so by creating two nested for loops and performing element-wise operations. Instead, you can do 
         # this in just one line with self.weights * 2 - 1. When you do the latter, you are performing vector operations.
         self.weights = self.weights*2-1
+        self.myID = nextAvailableID
         pass
 
     def Evaluate(self,directOrGUI):
@@ -83,3 +84,7 @@ class SOLUTION():
         randomRow = random.randint(0,2)
         randomColumn = random.randint(0,1)
         self.weights[randomRow,randomColumn] = random.random()*2-1
+
+    # used for assigning uniques ID to newly spawned children
+    def setID(self,nextAvailableID):
+        self.myID = nextAvailableID

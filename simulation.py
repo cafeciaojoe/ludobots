@@ -19,7 +19,7 @@ import constants as c
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI,solutionID):
 
         self.directOrGUI = directOrGUI
 
@@ -42,7 +42,7 @@ class SIMULATION:
         p.setGravity(c.Xgravity, c.Ygravity, c.Zgravity)
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
 
         # Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.
         pyrosim.Prepare_To_Simulate(self.robot.robotId)

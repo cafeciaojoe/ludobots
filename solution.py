@@ -32,7 +32,8 @@ class SOLUTION():
         # i guess you dont need an instance of SIMULATION with every deep copy of HILL_CLIMBER
 
         #adding "&" runs simulate.py as a background process
-        os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID) + " &")
+        os.system(f"python3 simulate.py {directOrGUI} {self.myID} &")
+
         with open("fitness.txt", "r") as f:
             self.fitness = float(f.read())
             f.close()
@@ -59,7 +60,7 @@ class SOLUTION():
 
     # this function is reffered to as "Send_Brain()" in step 34 of ParralellHillClimber
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
+        pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
         pyrosim.Send_Sensor_Neuron(name= '0', linkName="Torso")
         pyrosim.Send_Sensor_Neuron(name= '1', linkName="BackLeg")
         pyrosim.Send_Sensor_Neuron(name= '2', linkName="FrontLeg")

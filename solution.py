@@ -57,8 +57,9 @@ class SOLUTION():
         pyrosim.Send_Cube(name="FrontLeg", pos=[.5, 0, -.5], size=[1, 1, 1])
         pyrosim.End()
 
+    # this function is reffered to as "Send_Brain()" in step 34 of ParralellHillClimber
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
         pyrosim.Send_Sensor_Neuron(name= '0', linkName="Torso")
         pyrosim.Send_Sensor_Neuron(name= '1', linkName="BackLeg")
         pyrosim.Send_Sensor_Neuron(name= '2', linkName="FrontLeg")

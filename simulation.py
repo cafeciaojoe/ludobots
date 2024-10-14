@@ -21,6 +21,8 @@ class SIMULATION:
 
     def __init__(self, directOrGUI,solutionID):
 
+        self.solutionID = solutionID
+
         self.directOrGUI = directOrGUI
 
         if directOrGUI == "DIRECT":
@@ -61,8 +63,8 @@ class SIMULATION:
             if self.directOrGUI == "GUI":
                 time.sleep(c.loopSleep)
 
-    def Get_Fitness(self):
-        self.robot.Get_Fitness()
+    def Get_Fitness(self,solutionID):
+        self.robot.Get_Fitness(solutionID)
         pass
 
     #https://www.geeksforgeeks.org/destructors-in-python/

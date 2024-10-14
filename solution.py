@@ -2,6 +2,7 @@ import numpy
 import pyrosim.pyrosim as pyrosim
 import random
 import os
+import time
 
 
 """Note that the weights matrix should be taller than it is wide (three rows and two columns). If you want the weight
@@ -34,8 +35,13 @@ class SOLUTION():
         #adding "&" runs simulate.py as a background process
         os.system(f"python3 simulate.py {directOrGUI} {self.myID} &")
 
-        with open("fitness.txt", "r") as f:
+        # delay the read in of fitness .txt until it has been created by simulate.py
+        while not os.path.exists(f"fitness{str(self.myID)}.txt"):
+            time.sleep(0.01)
+
+        with open(f"fitness{str(self.myID)}.txt", "r") as f:
             self.fitness = float(f.read())
+            print(self.fitness)
             f.close()
 
     def Create_World(self):

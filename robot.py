@@ -67,22 +67,20 @@ class ROBOT:
                 # print(f'the corresponding joint name is: {jointName}')
 
     # this should be called "export fitness" because when it is called nothing is done with the vlaue. 
-    def Get_Fitness(self):
+    def Get_Fitness(self,solutionID):
         # in 37 L "hll climber, self.robotId is reffered to as just self.robot
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         #print(stateOfLinkZero)
         #print(positionOfLinkZero[0])
-        with open("fitness.txt", "w") as f:
+
+        with open(f"tmp{solutionID}.txt", "w") as f:
             f.write(str(xCoordinateOfLinkZero))
             f.close()
+        
+        os.system(f"mv tmp{solutionID}.txt" f"fitness{solutionID}.txt")
 
-
-
-    # def Save_Values(self):
-    #     for sensor in self.sensors.values():
-    #         sensor.Save_Values()
-    #
-    #     for motor in self.motors.values():
-    #         motor.Save_Values()
+        #with open(f"fitness{solutionID}.txt", "w") as f:
+        #    f.write(str(xCoordinateOfLinkZero))
+        #    f.close()

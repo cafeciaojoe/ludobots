@@ -79,7 +79,7 @@ class ROBOT:
             f.write(str(xCoordinateOfLinkZero))
             f.close()
         
-        os.system(f"mv tmp{solutionID}.txt" f"fitness{solutionID}.txt")
+        os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
 
         #with open(f"fitness{solutionID}.txt", "w") as f:
         #    f.write(str(xCoordinateOfLinkZero))

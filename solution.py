@@ -43,7 +43,7 @@ class SOLUTION():
 
         with open(f"fitness{str(self.myID)}.txt", "r") as f:
             self.fitness = float(f.read())
-            print(self.fitness)
+            #print(self.fitness)
             f.close()
         
         # kagi assistant said os.remove is safer and more pythonic than the rm shell command

@@ -2,9 +2,14 @@ import solution
 import constants as c
 import copy
 
+import os
+
 class PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
+        os.system("rm brain*.nndf")
+        os.system("rm fitness*.txt")
+
         self.parents = {}
 
         self.nextAvailableID = 0 
@@ -25,17 +30,17 @@ class PARALLEL_HILL_CLIMBER:
         for i in self.parents:
             self.parents[i].Wait_For_Simulation_To_End()
             
-        # self.parent.Evaluate("GUI")
-        # for currentGeneration in range(0,c.numberOfGenerations):
-        #     self.Evolve_For_One_Generation()
+        for currentGeneration in range(0,c.numberOfGenerations):
+            self.Evolve_For_One_Generation()
         pass
             
     def Evolve_For_One_Generation(self):
-        self.Spawn()
-        self.Mutate()
-        self.child.Evaluate("DIRECT")
-        self.Print()
-        self.Select()
+        pass
+        # self.Spawn()
+        # self.Mutate()
+        # self.child.Evaluate("DIRECT")
+        # self.Print()
+        # self.Select()
 
     def Spawn(self):
         self.child = copy.deepcopy(self.parent)

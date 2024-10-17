@@ -9,18 +9,22 @@ class PARALLEL_HILL_CLIMBER:
 
         self.nextAvailableID = 0 
 
-        for parent_no in range(0,c.populationSize):
+        for i in range(0,c.populationSize):
             # in the dictionary "parents", there is a key which is the int variable "parent"
             # that corresponds to an instance of the class "SOLUTION"
             # which is from the module "solution" imported from the top of the file. 
             # you need state "SOLUTION()" not "SOLUTION"
             # if you do the latter then you dont make instance but a direct reference which could chaneg the actual class
-            self.parents[parent_no] = solution.SOLUTION(self.nextAvailableID)
+            self.parents[i] = solution.SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1 
 
     def evolve(self):
-        for parent_no in self.parents:
-            self.parents[parent_no].Evaluate("GUI")
+        for i in self.parents:
+            self.parents[i].Start_Simulation("GUI")
+
+        for i in self.parents:
+            self.parents[i].Wait_For_Simulation_To_End()
+            
         # self.parent.Evaluate("GUI")
         # for currentGeneration in range(0,c.numberOfGenerations):
         #     self.Evolve_For_One_Generation()

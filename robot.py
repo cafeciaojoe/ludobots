@@ -17,7 +17,8 @@ class ROBOT:
     def __init__(self,solutionID):
         self.robotId = p.loadURDF("body.urdf")
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf")
-        os.system(f"rm brain{solutionID}.nndf")
+        # kagi assistant said os.remove is safer and more pythonic than the rm shell command
+        os.remove(f"brain{solutionID}.nndf")
 
     def Prepare_To_Sense(self):
         self.sensors = {}

@@ -25,7 +25,7 @@ class SOLUTION():
         self.myID = nextAvailableID
         pass
 
-    def Evaluate(self,directOrGUI):
+    def Start_Simulation(self,directOrGUI):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
@@ -34,7 +34,9 @@ class SOLUTION():
 
         #adding "&" runs simulate.py as a background process
         os.system(f"python3 simulate.py {directOrGUI} {self.myID} &")
+        pass
 
+    def Wait_For_Simulation_To_End(self):
         # delay the read in of fitness .txt until it has been created by simulate.py
         while not os.path.exists(f"fitness{str(self.myID)}.txt"):
             time.sleep(0.01)
@@ -43,6 +45,9 @@ class SOLUTION():
             self.fitness = float(f.read())
             print(self.fitness)
             f.close()
+        
+        # kagi assistant said os.remove is safer and more pythonic than the rm shell command
+        os.remove(f"fitness{str(self.myID)}.txt")
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")

@@ -68,7 +68,31 @@ class PARALLEL_HILL_CLIMBER:
         print("\n")
         
     def Show_Best(self):
-       # self.parent.Evaluate("GUI")
-        pass
+        # initialise this variable as infinite to avoid anything being higer than it on the first pass
+        best_fitness = float('inf')
+        # initialise as None, we can check later if there is actually a better fitness
+        best_i = None
+
+        # Handle edge cases where self.parents might be empty
+        if not self.parents:
+            print("self.parents is empty!")
+            return
+
+        #a ccessing dictionary items directly can be more efficient. 
+        # When you use "for i in self.parents" (like you have been in this tutorial), you need to access 
+        # the value with self.parents[i] inside the loop, which involves an additional dictionary lookup. 
+        # Using "for i, parent in self.parents.items()"" avoids this extra lookup.
+        for i, parent in self.parents.items():
+            current_fitness = parent.fitness
+            if current_fitness < best_fitness:
+                best_fitness = current_fitness
+                best_i = i
+
+        if best_i is not None:
+            self.parents[best_i].Start_Simulation("GUI")
+            print("\n")
+            print(f"Best Fitness: {self.parents[best_i].fitness}")
+            print("\n")
+
 
 

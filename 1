@@ -18,3 +18,21 @@ destroy semaphore
 semaphore destroyed
 destroy main semaphore
 main semaphore destroyed
+Traceback (most recent call last):
+  File "/Users/joseph/PycharmProjects/ludobots/simulate.py", line 20, in <module>
+    simulation.Run()
+  File "/Users/joseph/PycharmProjects/ludobots/simulation.py", line 60, in Run
+    self.robot.Sense(t)
+  File "/Users/joseph/PycharmProjects/ludobots/robot.py", line 48, in Sense
+    sensor.Get_Value(timeStep)
+  File "/Users/joseph/PycharmProjects/ludobots/sensor.py", line 17, in Get_Value
+    self.sensorValues[timeStep] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joseph/PycharmProjects/ludobots/pyrosim/pyrosim.py", line 51, in Get_Touch_Sensor_Value_For_Link
+    pts = p.getContactPoints()
+          ^^^^^^^^^^^^^^^^^^^^
+pybullet.error: Not connected to physics server.
+Exception ignored in: <function SIMULATION.__del__ at 0x11053d9e0>
+Traceback (most recent call last):
+  File "/Users/joseph/PycharmProjects/ludobots/simulation.py", line 73, in __del__
+pybullet.error: Not connected to physics server.

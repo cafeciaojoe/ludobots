@@ -95,8 +95,8 @@ class SOLUTION():
         pyrosim.End()
 
     def Mutate(self):
-        randomRow = random.randint(0,2)
-        randomColumn = random.randint(0,1)
+        randomRow = random.randint(0,c.numSensorNeurons -1)
+        randomColumn = random.randint(0,c.numMotorNeurons -1)
         self.weights[randomRow,randomColumn] = random.random()*2-1
 
     # used for assigning uniques ID to newly spawned children

@@ -37,7 +37,7 @@ backLegForceMax = 50
 numSensorNeurons = 3
 numMotorNeurons = 2
 
-numberOfGenerations = 10
+numberOfGenerations = 1
 
-populationSize = 10
+populationSize = 1
 

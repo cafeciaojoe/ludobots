@@ -32,9 +32,11 @@ class SOLUTION():
         # i am still not sure why this is run seperately and not imported as a module 
         # i guess you dont need an instance of SIMULATION with every deep copy of HILL_CLIMBER
 
-        #adding "&" runs simulate.py as a background process
-        os.system(f"python3 simulate.py {directOrGUI} {self.myID} &")
-        pass
+        # adding "&" runs simulate.py as a background process
+        #os.system(f"python3 simulate.py {directOrGUI} {self.myID} &")
+        # adding 2&>1 & supresses any warnign messages
+        os.system(f"python3 simulate.py {directOrGUI} {self.myID} 2&>1 &")
+        
 
     def Wait_For_Simulation_To_End(self):
         # delay the read in of fitness .txt until it has been created by simulate.py

@@ -80,13 +80,13 @@ class SOLUTION():
         pyrosim.Send_Motor_Neuron(name= '3', jointName='Torso_BackLeg')
         pyrosim.Send_Motor_Neuron(name= '4', jointName='Torso_FrontLeg')
 
-        num_sensor_neurons = 2
-        num_motor_neurons = 3
-        first_motor_neuron = num_sensor_neurons +1
+        num_sensor_neurons = 3
+        num_motor_neurons = 2
+        first_motor_neuron = num_motor_neurons +1
 
         #2 x 3 = 6 synapses. each motor connected to each neuron.
-        for currentRow in range(num_motor_neurons):
-            for currentColumn in range(num_sensor_neurons):
+        for currentRow in range(num_sensor_neurons):
+            for currentColumn in range(num_motor_neurons):
                 pyrosim.Send_Synapse(
                     sourceNeuronName=str(currentRow),
                     targetNeuronName=str(currentColumn + first_motor_neuron),

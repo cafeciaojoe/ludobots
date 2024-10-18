@@ -4,6 +4,7 @@ import random
 import os
 import time
 
+import constants as c
 
 """Note that the weights matrix should be taller than it is wide (three rows and two columns). If you want the weight
  of the synapse that connects the third sensor neuron to the second motor neuron, for example, you would "walk down" 
@@ -17,7 +18,7 @@ performing vector operations."""
 class SOLUTION():
     def __init__(self,nextAvailableID):
         #Create an array of the given shape (n dimensions) and populate it with random samples from a uniform distribution over [0, 1).
-        self.weights = numpy.random.rand(3,2)
+        self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
         # multiply this whole matrix by two and subtract one to scale each weight to the range [-1,+1]. Store it back in the same variable. 
         # Note that you do not have to do so by creating two nested for loops and performing element-wise operations. Instead, you can do 
         # this in just one line with self.weights * 2 - 1. When you do the latter, you are performing vector operations.
@@ -80,13 +81,11 @@ class SOLUTION():
         pyrosim.Send_Motor_Neuron(name= '3', jointName='Torso_BackLeg')
         pyrosim.Send_Motor_Neuron(name= '4', jointName='Torso_FrontLeg')
 
-        num_sensor_neurons = 3
-        num_motor_neurons = 2
-        first_motor_neuron = num_motor_neurons +1
+        first_motor_neuron = c.numMotorNeurons + 1
 
         #2 x 3 = 6 synapses. each motor connected to each neuron.
-        for currentRow in range(num_sensor_neurons):
-            for currentColumn in range(num_motor_neurons):
+        for currentRow in range(c.numSensorNeurons):
+            for currentColumn in range(c.numMotorNeurons):
                 pyrosim.Send_Synapse(
                     sourceNeuronName=str(currentRow),
                     targetNeuronName=str(currentColumn + first_motor_neuron),

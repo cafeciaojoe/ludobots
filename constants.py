@@ -34,8 +34,8 @@ backLegTargetAngleMax = 2*math.pi
 frontLegForceMax = 50
 backLegForceMax = 50
 
-numSensorNeurons = 2
-numMotorNeurons = 3
+numSensorNeurons = 3
+numMotorNeurons = 2
 
 numberOfGenerations = 10
 

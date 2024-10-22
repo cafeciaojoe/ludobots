@@ -73,15 +73,19 @@ class ROBOT:
 
     # this should be called "export fitness" because when it is called nothing is done with the vlaue. 
     def Get_Fitness(self,solutionID):
-        # in 37 L "hll climber, self.robotId is reffered to as just self.robot
-        stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
-        #print(stateOfLinkZero)
-        #print(positionOfLinkZero[0])
+        
+        # these lines querie pyrosim for the position of the first link which is a leg
+        #stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        #positionOfLinkZero = stateOfLinkZero[0]
+        #xCoordinateOfLinkZero = positionOfLinkZero[0]
+
+        # these lines querie pyrosim for the position of the base link which is the torso
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
 
         with open(f"tmp{solutionID}.txt", "w") as f:
-            f.write(str(xCoordinateOfLinkZero))
+            f.write(str(xPosition))
             f.close()
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")

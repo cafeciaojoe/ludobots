@@ -119,7 +119,7 @@ class SOLUTION():
         pyrosim.Send_Motor_Neuron(name= '7', jointName='LeftLeg_LeftLowerLeg')
         pyrosim.Send_Motor_Neuron(name= '8', jointName='FrontLeg_FrontLowerLeg')
         pyrosim.Send_Motor_Neuron(name= '9', jointName='BackLeg_BackLowerLeg')
-        pyrosim.Send_Motor_Neuron(name= '10', jointName='LeftLeg_LeftLowerLeg')
+        pyrosim.Send_Motor_Neuron(name= '10', jointName='RightLeg_RightLowerLeg')
 
         first_motor_neuron = c.numSensorNeurons - 1
 

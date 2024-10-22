@@ -7,7 +7,7 @@ Xgravity = 0
 Ygravity = 0
 Zgravity = -9.8
 
-loops = 10000
+loops = 3000
 loopSleep = .001
 
 amplitude = math.pi/4
@@ -31,13 +31,15 @@ frontLegTargetAngleMax = 2*math.pi
 backLegTargetAngleMin = 0
 backLegTargetAngleMax = 2*math.pi
 
+motorJointRange = 0.2
+
 frontLegForceMax = 50
 backLegForceMax = 50
 
-numSensorNeurons = 9
-numMotorNeurons = 8
+numSensorNeurons = 5
+numMotorNeurons = 6
 
 numberOfGenerations = 10
 
-populationSize = 10
+populationSize = 12
 

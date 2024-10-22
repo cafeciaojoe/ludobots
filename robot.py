@@ -11,6 +11,7 @@ import os
 
 from sensor import SENSOR
 from motor import MOTOR
+import constants as c
 
 class ROBOT:
 
@@ -61,7 +62,10 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                # so the value of the sensor gets propegated thru the network, multiplied by the weights,
+                # as it dos it turns into an actual angle (in radians).
+                # c.motorjointRange restricts this range to promote osciliatory motion in the locomotion solutions
+                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
                 self.motors[jointName].Set_Value(desiredAngle, self)
                 # print(f'the motor neuron name is: {neuronName}')
                 # print(f'the motor neuron value is: {desiredAngle}')

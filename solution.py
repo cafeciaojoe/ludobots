@@ -50,10 +50,14 @@ class SOLUTION():
             f.close()
         
         # kagi assistant said os.remove is safer and more pythonic than the rm shell command
+        #TODO make a seperate folder where these go so the root is not so populated with these files duing big sims. 
         os.remove(f"fitness{str(self.myID)}.txt")
+        os.remove(f"body{str(self.myID)}.urdf")
+        os.remove(f"world{str(self.myID)}.sdf")
+        os.remove(f"brain{str(self.myID)}.nndf")
 
     def Create_World(self):
-        pyrosim.Start_SDF("world.sdf")
+        pyrosim.Start_SDF(f"world{str(self.myID)}.sdf")
         length = 1
         width = 1
         height = 1
@@ -65,7 +69,7 @@ class SOLUTION():
         # Joints with no upstream joint have absolute positions. Every other joint has a position relative to its upstream joint.
         # so both of these joints need to be absolute!!!
         # https://docs.google.com/presentation/d/1zvZzFyTf8PBNjzQZx_gZk84aUntZo2bUKhpe78yT4OY/edit#slide=id.g10dad2fba23_2_371
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF(f"body{str(self.myID)}.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[1, 1, 1])
 
         pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute", position=[0, 0.5, 1], jointAxis = "1 0 0")
@@ -88,6 +92,7 @@ class SOLUTION():
         pyrosim.Send_Joint(name="RightLeg_RightLowerLeg", parent="RightLeg", child="RightLowerLeg", type="revolute", position=[1, 0, 0], jointAxis = "0 1 0")
         pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
         pyrosim.End()
+        
 
     # this function is reffered to as "Send_Brain()" in step 34 of ParralellHillClimber
     def Create_Brain(self):

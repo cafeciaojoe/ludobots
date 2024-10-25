@@ -43,7 +43,7 @@ class SIMULATION:
         # This is because no forces are currently at work in your simulated world.
         p.setGravity(c.Xgravity, c.Ygravity, c.Zgravity)
 
-        self.world = WORLD()
+        self.world = WORLD(solutionID)
         self.robot = ROBOT(solutionID)
 
         # Pyrosim has to do some additional setting up when it is used to simulate sensors. So, add just before entering the for loop in simulate.py.

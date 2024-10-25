@@ -31,7 +31,7 @@ frontLegTargetAngleMax = 2*math.pi
 backLegTargetAngleMin = 0
 backLegTargetAngleMax = 2*math.pi
 
-motorJointRange = 0.2
+motorJointRange = 1
 
 frontLegForceMax = 50
 backLegForceMax = 50
@@ -41,5 +41,5 @@ numMotorNeurons = 8
 
 numberOfGenerations = 10
 
-populationSize = 10
+populationSize = 100
 

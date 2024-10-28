@@ -83,10 +83,11 @@ class ROBOT:
         # these lines querie pyrosim for the position of the base link which is the torso
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
-        xPosition = basePosition[0]
+        zPosition = basePosition[2]
+    
 
         with open(f"tmp{solutionID}.txt", "w") as f:
-            f.write(str(xPosition))
+            f.write(str(zPosition))
             f.close()
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")

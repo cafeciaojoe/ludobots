@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Simulate",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/simulate.py",
+            "args": ["GUI", "10"],
+            "console": "integratedTerminal"
+        }
+    ]
+}

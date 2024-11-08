@@ -49,6 +49,11 @@ class SIMULATION:
         self.robot.Prepare_To_Sense()
         self.robot.Prepare_To_Act()
 
+        print("sleep")
+        time.sleep(5)
+        exit()
+
+
 
     def Run(self):
         loops = c.loops
@@ -60,6 +65,36 @@ class SIMULATION:
             self.robot.Act(t)
             if self.directOrGUI == "GUI":
                 time.sleep(c.loopSleep)
+
+            keys = p.getKeyboardEvents()
+            cam = p.getDebugVisualizerCamera()
+            #Keys to change camera
+            if keys.get(108):  #L (right)
+                xyz = cam[11]
+                x= float(xyz[0]) + 0.125
+                y = xyz[1]
+                z = xyz[2]
+                p.resetDebugVisualizerCamera(cameraYaw = cam[8], cameraPitch= cam[9],cameraDistance = cam[10],cameraTargetPosition=[x,y,z])
+            if keys.get(106):  #J (left)
+                xyz = cam[11]
+                x= float(xyz[0]) - 0.125
+                y = xyz[1]
+                z = xyz[2]
+                p.resetDebugVisualizerCamera(cameraYaw = cam[8], cameraPitch= cam[9],cameraDistance = cam[10],cameraTargetPosition=[x,y,z])
+            if keys.get(105):  #I (up)
+                xyz = cam[11]
+                x = xyz[0] 
+                y = float(xyz[1]) + 0.125
+                z = xyz[2]
+                p.resetDebugVisualizerCamera(cameraYaw = cam[8], cameraPitch= cam[9],cameraDistance = cam[10],cameraTargetPosition=[x,y,z])
+            if keys.get(107):  #K (down)
+                xyz = cam[11]
+                x = xyz[0] 
+                y = float(xyz[1]) - 0.125
+                z = xyz[2]
+                p.resetDebugVisualizerCamera(cameraYaw = cam[8], cameraPitch= cam[9],cameraDistance = cam[10],cameraTargetPosition=[x,y,z]) 
+
+            
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()

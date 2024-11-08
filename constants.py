@@ -8,7 +8,7 @@ Ygravity = 0
 Zgravity = -9.8
 
 loops = 10000
-loopSleep = .01
+loopSleep = 1
 
 amplitude = math.pi/4
 frequency = 10

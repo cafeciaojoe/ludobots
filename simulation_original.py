@@ -15,22 +15,11 @@ import math
 import random
 import constants as c
 
-import usb_config  # This will set up the backend (from chatgpt) 
-
-import time
-
-import cflib.crtp
-from cflib.crazyflie.swarm import CachedCfFactory
-from cflib.crazyflie.swarm import Swarm
-
-
 #Note: We are going to name all of our classes in ALL CAPS to distinguish them from file names and variable names.
 
 class SIMULATION:
 
     def __init__(self, directOrGUI):
-
-        self.linkposition = {}
 
         self.directOrGUI = directOrGUI
 
@@ -60,27 +49,25 @@ class SIMULATION:
         self.robot.Prepare_To_Sense()
         self.robot.Prepare_To_Act()
 
-        # print("sleep")
-        # time.sleep(5)
-        # exit()
+        print("sleep")
+        time.sleep(5)
+        exit()
+
+
 
     def Run(self):
         loops = c.loops
-        keys = p.getKeyboardEvents()
-        cam = p.getDebugVisualizerCamera()
-
         for t in range(0, loops):
             #print(i)
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.think()
             self.robot.Act(t)
-            linkPosition = self.robot.Get_Position()
-            print(linkPosition)
-            
             if self.directOrGUI == "GUI":
                 time.sleep(c.loopSleep)
 
+            keys = p.getKeyboardEvents()
+            cam = p.getDebugVisualizerCamera()
             #Keys to change camera
             if keys.get(108):  #L (right)
                 xyz = cam[11]
@@ -106,6 +93,8 @@ class SIMULATION:
                 y = float(xyz[1]) - 0.125
                 z = xyz[2]
                 p.resetDebugVisualizerCamera(cameraYaw = cam[8], cameraPitch= cam[9],cameraDistance = cam[10],cameraTargetPosition=[x,y,z]) 
+
+            
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()

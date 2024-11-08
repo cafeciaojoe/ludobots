@@ -17,6 +17,7 @@ class ROBOT:
         self.nn = NEURAL_NETWORK("brain.nndf")
 
     def Prepare_To_Sense(self):
+        self.linkPosition = {}
         self.sensors = {}
         #Note: linkNamesToIndices is a dictionary used inside of pyrosim to hide a
         # lot of details from you. But, for this, we will use it to give us the name
@@ -74,6 +75,20 @@ class ROBOT:
         with open("fitness.txt", "w") as f:
             f.write(str(xCoordinateOfLinkZero))
             f.close()
+
+    def Get_Position(self):
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        stateOfLinkOne = p.getLinkState(self.robotId, 1)
+        stateOfLinkTwo = p.getLinkState(self.robotId, 2)
+
+        self.linkPosition["linkZero"] = stateOfLinkZero[0]
+        self.linkPosition["linkOne"] = stateOfLinkOne[0]
+        self.linkPosition["linkTwo"] = stateOfLinkTwo[0]
+       
+        #print(self.linkPosition)
+        return self.linkPosition
+
+
 
 
 

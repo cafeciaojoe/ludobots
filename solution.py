@@ -1,7 +1,7 @@
 import numpy
 import pyrosim.pyrosim as pyrosim
 import random
-import  os
+import os
 
 
 """Note that the weights matrix should be taller than it is wide (three rows and two columns). If you want the weight

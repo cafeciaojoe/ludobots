@@ -78,32 +78,12 @@ class ROBOT:
     def Get_Positions(self):
         # Get positions for all links
         torso_pos = p.getBasePositionAndOrientation(self.robotId)[0]
-        backleg_pos = p.getLinkState(self.robotId, 0)[0]  # Torso is base link (index 0)
-        frontleg_pos = p.getLinkState(self.robotId, 1)[0]  # BackLeg is first child (index 1)
-        #frontleg_pos = p.getLinkState(self.robotId, 2)[0]  # FrontLeg is second child (index 3)
+        backleg_pos = p.getLinkState(self.robotId, 0)[0]  
+        frontleg_pos = p.getLinkState(self.robotId, 1)[0]  
+        #frontleg_pos = p.getLinkState(self.robotId, 2)[0]  
 
         return {
             "Torso": torso_pos,
             "BackLeg": backleg_pos,
             "FrontLeg": frontleg_pos
         }
-
-        # positions = {}
-
-        # # Get Torso position (base link)
-        # basePos = p.getBasePositionAndOrientation(self.robotId)[0]
-        # positions["Torso"] = basePos
-
-        # return positions
-
-
-
-
-
-
-    # def Save_Values(self):
-    #     for sensor in self.sensors.values():
-    #         sensor.Save_Values()
-    #
-    #     for motor in self.motors.values():
-    #         motor.Save_Values()

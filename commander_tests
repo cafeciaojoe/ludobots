@@ -1,8 +1,6 @@
 import logging
 import time
 
-
-
 import cflib.crtp
 from cflib.crazyflie import Crazyflie
 from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
@@ -65,7 +63,7 @@ if __name__ == '__main__':
                 commander_0.land(0.0, 2.0)
                 commander_1.land(0.0, 2.0)
                 commander_2.land(0.0, 2.0)
-                
+
                 time.sleep(3)
 
                 commander_0.stop()

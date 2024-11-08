@@ -1,8 +1,6 @@
 #So far, we have named our files using verbs, indicating what they do: generate.py a world and robot, simulate.py them, and then analyze.py them.
 # We will now create one file for each class, and we will use a noun to name it.
 
-import usb_config  # This will set up the backend (from chatgpt) 
-
 from world import WORLD
 from robot import ROBOT
 
@@ -17,22 +15,11 @@ import math
 import random
 import constants as c
 
-import usb_config  # This will set up the backend (from chatgpt) 
-
-import time
-
-import cflib.crtp
-from cflib.crazyflie.swarm import CachedCfFactory
-from cflib.crazyflie.swarm import Swarm
-
-
 #Note: We are going to name all of our classes in ALL CAPS to distinguish them from file names and variable names.
 
 class SIMULATION:
 
     def __init__(self, directOrGUI):
-
-        self.positions = {}
 
         self.directOrGUI = directOrGUI
 
@@ -62,31 +49,20 @@ class SIMULATION:
         self.robot.Prepare_To_Sense()
         self.robot.Prepare_To_Act()
 
-        # print("sleep")
-        # time.sleep(5)
-        
-        # exit()
-
     def Run(self):
         loops = c.loops
-        keys = p.getKeyboardEvents()
-        cam = p.getDebugVisualizerCamera()
-
         for t in range(0, loops):
             #print(i)
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.think()
             self.robot.Act(t)
-            # Usage (assuming you have already loaded the robot):
-            # robotId = p.loadURDF("body.urdf")
-            self.positions = self.robot.Get_Positions()
-            print(self.positions)
-            
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.loopSleep)
 
+            keys = p.getKeyboardEvents()
+            cam = p.getDebugVisualizerCamera()
             #Keys to change camera
             if keys.get(108):  #L (right)
                 xyz = cam[11]
@@ -112,7 +88,7 @@ class SIMULATION:
                 y = float(xyz[1]) - 0.125
                 z = xyz[2]
                 p.resetDebugVisualizerCamera(cameraYaw = cam[8], cameraPitch= cam[9],cameraDistance = cam[10],cameraTargetPosition=[x,y,z]) 
-
+                
     def Get_Fitness(self):
         self.robot.Get_Fitness()
         pass

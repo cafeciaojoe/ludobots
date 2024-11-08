@@ -1,8 +1,6 @@
 #So far, we have named our files using verbs, indicating what they do: generate.py a world and robot, simulate.py them, and then analyze.py them.
 # We will now create one file for each class, and we will use a noun to name it.
 
-import usb_config  # This will set up the backend (from chatgpt) 
-
 from world import WORLD
 from robot import ROBOT
 
@@ -30,7 +28,9 @@ from cflib.crazyflie.swarm import Swarm
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, position_callback=None):
+
+        self.position_callback = position_callback
 
         self.positions = {}
 
@@ -64,7 +64,6 @@ class SIMULATION:
 
         # print("sleep")
         # time.sleep(5)
-        
         # exit()
 
     def Run(self):
@@ -78,11 +77,13 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.think()
             self.robot.Act(t)
-            # Usage (assuming you have already loaded the robot):
-            # robotId = p.loadURDF("body.urdf")
+
             self.positions = self.robot.Get_Positions()
-            print(self.positions)
+            #print(self.positions)
             
+            # Add this line to send positions to the callback
+            if self.position_callback:
+                self.position_callback(self.positions)
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.loopSleep)

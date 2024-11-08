@@ -2,7 +2,7 @@ import sys
 
 """How the world is simulated"""
 
-from simulation import SIMULATION
+from simulation_gpt import SIMULATION
 
 #This code checks if the argument is provided and if it is either "GUI" or "DIRECT". 
 # If not, it prints a usage message and exits the program.

@@ -1,0 +1,51 @@
+import logging
+import time
+
+
+
+import cflib.crtp
+from cflib.crazyflie import Crazyflie
+from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
+from cflib.utils import uri_helper
+
+import usb_config  # This will set up the backend (from chatgpt) 
+
+# URI to the Crazyflie to connect to
+uri = uri_helper.uri_from_env(default='radio://0/90/2M/A0A0A0A0AA')
+uri_2 = uri_helper.uri_from_env(default='radio://0/80/2M/A0A0A0A0A8')
+uri_3 = uri_helper.uri_from_env(default='radio://0/80/2M/A0A0A0A0AC')
+
+def simple_connect():
+
+    print("Yeah, I'm connected! :D")
+    time.sleep(3)
+    print("Now I will disconnect :'(")
+
+def take_off(scf):
+    commander= scf.cf.high_level_commander
+
+    commander.takeoff(1.0, 2.0)
+    time.sleep(3)
+
+def land(scf):
+    commander= scf.cf.high_level_commander
+
+    commander.land(0.0, 2.0)
+    time.sleep(2)
+
+    commander.stop()
+
+
+if __name__ == '__main__':
+    # Initialize the low-level drivers
+    cflib.crtp.init_drivers()
+
+    with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
+         with SyncCrazyflie(uri_2, cf=Crazyflie(rw_cache='./cache')) as scf_2:
+            with SyncCrazyflie(uri_3, cf=Crazyflie(rw_cache='./cache')) as scf_3:
+                take_off(scf)
+                take_off(scf_2)
+                take_off(scf_3)
+                land(scf)
+                land(scf_2)
+                land(scf_3)

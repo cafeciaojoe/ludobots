@@ -17,7 +17,6 @@ class ROBOT:
         self.nn = NEURAL_NETWORK("brain.nndf")
 
     def Prepare_To_Sense(self):
-        self.linkPosition = {}
         self.sensors = {}
         #Note: linkNamesToIndices is a dictionary used inside of pyrosim to hide a
         # lot of details from you. But, for this, we will use it to give us the name
@@ -76,17 +75,27 @@ class ROBOT:
             f.write(str(xCoordinateOfLinkZero))
             f.close()
 
-    def Get_Position(self):
-        stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        stateOfLinkOne = p.getLinkState(self.robotId, 1)
-        stateOfLinkTwo = p.getLinkState(self.robotId, 2)
+    def Get_Positions(self):
+        # Get positions for all links
+        torso_pos = p.getBasePositionAndOrientation(self.robotId)[0]
+        backleg_pos = p.getLinkState(self.robotId, 0)[0]  # Torso is base link (index 0)
+        frontleg_pos = p.getLinkState(self.robotId, 1)[0]  # BackLeg is first child (index 1)
+        #frontleg_pos = p.getLinkState(self.robotId, 2)[0]  # FrontLeg is second child (index 3)
 
-        self.linkPosition["linkZero"] = stateOfLinkZero[0]
-        self.linkPosition["linkOne"] = stateOfLinkOne[0]
-        self.linkPosition["linkTwo"] = stateOfLinkTwo[0]
-       
-        #print(self.linkPosition)
-        return self.linkPosition
+        return {
+            "Torso": torso_pos,
+            "BackLeg": backleg_pos,
+            "FrontLeg": frontleg_pos
+        }
+
+        # positions = {}
+
+        # # Get Torso position (base link)
+        # basePos = p.getBasePositionAndOrientation(self.robotId)[0]
+        # positions["Torso"] = basePos
+
+        # return positions
+
 
 
 

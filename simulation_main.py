@@ -84,7 +84,9 @@ class SIMULATION:
             self.robot.Act(t)
 
             self.positions = self.robot.Get_Positions()
-            print(self.positions["Torso"][0],  self.positions["Torso"][1],  self.positions["Torso"][2])
+            print("B",self.positions["BackLeg"][0]/5,  self.positions["BackLeg"][1]/5,  self.positions["BackLeg"][2]/5)
+            print("T",self.positions["Torso"][0]/5,  self.positions["Torso"][1]/5,  self.positions["Torso"][2]/5)
+            print("F",self.positions["FrontLeg"][0]/5,  self.positions["FrontLeg"][1]/5,  self.positions["FrontLeg"][2]/5)
 
             if self.directOrGUI == "GUI":
                 time.sleep(c.loopSleep)
@@ -131,9 +133,9 @@ class SIMULATION:
                     commander_1 = scf_2.cf.high_level_commander
                     commander_2 = scf_3.cf.high_level_commander
 
-                    commander_0.takeoff(1.0, 2.0)
-                    commander_1.takeoff(1.0, 2.0)
-                    commander_2.takeoff(1.0, 2.0)
+                    commander_0.takeoff(.3, 2.0)
+                    commander_1.takeoff(.4, 2.0)
+                    commander_2.takeoff(.3, 2.0)
 
                     time.sleep(5)
 
@@ -147,9 +149,9 @@ class SIMULATION:
                         # robotId = p.loadURDF("body.urdf")
                         self.positions = self.robot.Get_Positions()
 
-                        commander_0.go_to( self.positions["Torso"][0],  self.positions["Torso"][1],  self.positions["Torso"][2], 0, c.loopSleep, relative=False)
-                        #commander_1.go_to( self.positions["BackLeg"][0],  self.positions["Torso"][1],  self.positions["Torso"][2], 0, c.loopSleep, relative=False)
-                        #commander_2.go_to( self.positions["FrontLeg"][0],  self.positions["Torso"][1],  self.positions["Torso"][2], 0, c.loopSleep, relative=False)
+                        commander_0.go_to(self.positions["Torso"][0]/5,  self.positions["Torso"][1]/5,  self.positions["Torso"][2]/5, 0, c.loopSleep, relative=False)
+                        commander_1.go_to(self.positions["BackLeg"][0]/5,  self.positions["BackLeg"][1]/5,  self.positions["BackLeg"][2]/5, 0, c.loopSleep, relative=False)
+                        commander_2.go_to(self.positions["FrontLeg"][0]/5,  self.positions["FrontLeg"][1]/5,  self.positions["FrontLeg"][2]/5, 0, c.loopSleep, relative=False)
                         
                         if self.directOrGUI == "GUI":
                             time.sleep(c.loopSleep)
@@ -204,5 +206,5 @@ def __del__(self):
 if __name__ == '__main__':
     directOrGUI = 'GUI'
     simulation = SIMULATION(directOrGUI)
-    simulation.Run()    
-    #simulation.RunFly()
+    #simulation.Run()    
+    simulation.RunFly()

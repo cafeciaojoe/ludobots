@@ -54,17 +54,17 @@ if __name__ == '__main__':
 
                 time.sleep(5)
 
-                commander_0.go_to(0, 0, .5, 0, flight_time, relative=False)
-                commander_1.go_to(.25, .25, 1, 0, flight_time, relative=False)
+                commander_0.go_to(-.25, -.25, .5, 0, flight_time, relative=False)
+                commander_1.go_to(0, .25, 1, 0, flight_time, relative=False)
                 commander_2.go_to(.5, .5, 1.5, 0, flight_time, relative=False)
 
-                time.sleep(flight_time)
+                time.sleep(5)
 
                 commander_0.land(0.0, 2.0)
                 commander_1.land(0.0, 2.0)
                 commander_2.land(0.0, 2.0)
 
-                time.sleep(3)
+                time.sleep(5)
 
                 commander_0.stop()
                 commander_1.stop()

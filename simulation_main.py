@@ -149,9 +149,10 @@ class SIMULATION:
                         # robotId = p.loadURDF("body.urdf")
                         self.positions = self.robot.Get_Positions()
 
-                        commander_0.go_to(self.positions["Torso"][0]/5,  self.positions["Torso"][1]/5,  self.positions["Torso"][2]/5, 0, c.loopSleep, relative=False)
-                        commander_1.go_to(self.positions["BackLeg"][0]/5,  self.positions["BackLeg"][1]/5,  self.positions["BackLeg"][2]/5, 0, c.loopSleep, relative=False)
-                        commander_2.go_to(self.positions["FrontLeg"][0]/5,  self.positions["FrontLeg"][1]/5,  self.positions["FrontLeg"][2]/5, 0, c.loopSleep, relative=False)
+                        # note: xy switched
+                        commander_0.go_to(self.positions["Torso"][1]/5,  self.positions["Torso"][0]/5,  self.positions["Torso"][2]/5, 0, c.loopSleep, relative=False)
+                        commander_1.go_to(self.positions["BackLeg"][1]/5,  self.positions["BackLeg"][0]/5,  self.positions["BackLeg"][2]/5, 0, c.loopSleep, relative=False)
+                        commander_2.go_to(self.positions["FrontLeg"][1]/5,  self.positions["FrontLeg"][0]/5,  self.positions["FrontLeg"][2]/5, 0, c.loopSleep, relative=False)
                         
                         if self.directOrGUI == "GUI":
                             time.sleep(c.loopSleep)
@@ -206,5 +207,5 @@ def __del__(self):
 if __name__ == '__main__':
     directOrGUI = 'GUI'
     simulation = SIMULATION(directOrGUI)
-    #simulation.Run()    
-    simulation.RunFly()
+    simulation.Run()    
+    #simulation.RunFly()

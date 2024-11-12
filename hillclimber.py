@@ -29,7 +29,7 @@ class HILL_CLIMBER:
         #print(f"child weights: {self.child.weights}")
 
     def Select(self):
-        if self.parent.fitness > self.child.fitness:
+        if self.child.fitness < self.parent.fitness:
             self.parent = self.child
 
     def Print(self):

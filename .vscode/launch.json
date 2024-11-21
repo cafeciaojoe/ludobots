@@ -6,7 +6,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/simulate.py",
-            "args": ["GUI", "10"],
+            "args": ["GUI", "130"],
             "console": "integratedTerminal"
         }
     ]

@@ -37,7 +37,7 @@ frontLegForceMax = 50
 backLegForceMax = 50
 
 numSensorNeurons = 7
-numMotorNeurons = 12
+numMotorNeurons = 10
 
 numberOfGenerations = 20
 

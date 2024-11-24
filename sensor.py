@@ -17,10 +17,8 @@ class SENSOR:
 
     def Get_Value(self,timeStep):
         if self.linkName == "FrontLowerLeg":
-            #self.sensorValues[timeStep] = math.tan(1*timeStep)
-            self.sensorValues[timeStep] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
-            print(self.sensorValues[timeStep])
-            #pass
+            self.sensorValues[timeStep] = math.tan(.01*timeStep)
+            #self.sensorValues[timeStep] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
         else:   
             self.sensorValues[timeStep] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
 

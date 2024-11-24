@@ -36,8 +36,8 @@ motorJointRange = .5
 frontLegForceMax = 50
 backLegForceMax = 50
 
-numSensorNeurons = 5
-numMotorNeurons = 8
+numSensorNeurons = 7
+numMotorNeurons = 12
 
 numberOfGenerations = 20
 

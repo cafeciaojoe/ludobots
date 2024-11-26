@@ -8,6 +8,7 @@ import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 import os
+import numpy as np
 
 from sensor import SENSOR
 from motor import MOTOR
@@ -18,6 +19,7 @@ class ROBOT:
     def __init__(self,solutionID):
         self.robotId = p.loadURDF(f"body{str(solutionID)}.urdf")
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf")
+        self.initial_pos = np.array(p.getBasePositionAndOrientation(self.robotId)[0])
         # kagi assistant said os.remove is safer and more pythonic than the rm shell command
         # 
         #os.remove(f"brain{solutionID}.nndf")
@@ -80,18 +82,23 @@ class ROBOT:
         #positionOfLinkZero = stateOfLinkZero[0]
         #xCoordinateOfLinkZero = positionOfLinkZero[0]
 
-        # these lines querie pyrosim for the position of the base link which is the torso
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        basePosition = basePositionAndOrientation[0]
-        zPosition = basePosition[2]
-    
+        fitness = self.get_displacement()
 
         with open(f"tmp{solutionID}.txt", "w") as f:
-            f.write(str(zPosition))
+            #f.write(str(zPosition))
+            f.write(str(fitness))
             f.close()
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
 
-        #with open(f"fitness{solutionID}.txt", "w") as f:
-        #    f.write(str(xCoordinateOfLinkZero))
-        #    f.close()
+    def get_displacement(self):
+        # Get current position
+        current_pos = np.array(p.getBasePositionAndOrientation(self.robotId)[0])
+
+        # Calculate displacement vector
+        displacement_vector = current_pos - self.initial_pos
+
+        # Calculate magnitude of displacement
+        displacement_magnitude = np.linalg.norm(displacement_vector)
+
+        return displacement_magnitude

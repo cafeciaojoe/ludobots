@@ -1,4 +1,4 @@
-import solution
+import solution_quad as solution
 import constants as c
 import copy
 
@@ -92,7 +92,15 @@ class PARALLEL_HILL_CLIMBER:
                 best_i = i
 
         if best_i is not None:
+            with open(f"hexvquad_fitness_disp.txt", "a") as f:
+                f.write("quad fitness: ")
+                f.write(str(self.parents[best_i].fitness))
+                f.write("\n")
+                f.close()
+
             self.parents[best_i].Start_Simulation("GUI")
+
+
             print("\n")
             print(f"Best Fitness: {self.parents[best_i].fitness}")
             print("\n")

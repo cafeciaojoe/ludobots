@@ -31,10 +31,6 @@ class SOLUTION():
         self.Create_Body()
         self.Create_Brain()
 
-        # TODO: try to do run simulate.py differently because it is hard to debug. 
-        #if self.myID > 10:
-        #    exit()
-
         """ i am still not sure why this is run seperately and not imported as a module 
         # i guess you dont need an instance of SIMULATION with every deep copy of HILL_CLIMBER"""
 
@@ -123,16 +119,23 @@ class SOLUTION():
 
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
         pyrosim.Send_Sensor_Neuron(name= '0', linkName="Torso")
-        pyrosim.Send_Sensor_Neuron(name= '1', linkName="FrontLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name= '2', linkName="BackLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name= '3', linkName="LeftLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name= '4', linkName="RightLowerLeg")
-        pyrosim.Send_Motor_Neuron(name= '5', jointName='Torso_FrontLeg')
-        pyrosim.Send_Motor_Neuron(name= '6', jointName='Torso_BackLeg')
-        pyrosim.Send_Motor_Neuron(name= '7', jointName='LeftLeg_LeftLowerLeg')
-        pyrosim.Send_Motor_Neuron(name= '8', jointName='FrontLeg_FrontLowerLeg')
-        pyrosim.Send_Motor_Neuron(name= '9', jointName='BackLeg_BackLowerLeg')
-        pyrosim.Send_Motor_Neuron(name= '10', jointName='RightLeg_RightLowerLeg')
+        pyrosim.Send_Sensor_Neuron(name= '1', linkName='FrontLeg')
+        pyrosim.Send_Sensor_Neuron(name= '2', linkName='BackLeg')
+        pyrosim.Send_Sensor_Neuron(name= '3', linkName='LeftLeg')
+        pyrosim.Send_Sensor_Neuron(name= '4', linkName='RightLeg')
+        pyrosim.Send_Sensor_Neuron(name= '5', linkName="FrontLowerLeg")
+        pyrosim.Send_Sensor_Neuron(name= '6', linkName="BackLowerLeg")
+        pyrosim.Send_Sensor_Neuron(name= '7', linkName="LeftLowerLeg")
+        pyrosim.Send_Sensor_Neuron(name= '8', linkName="RightLowerLeg")
+
+        pyrosim.Send_Motor_Neuron(name= '9', jointName='Torso_FrontLeg')
+        pyrosim.Send_Motor_Neuron(name= '10', jointName='Torso_BackLeg')
+        pyrosim.Send_Motor_Neuron(name= '11', jointName='Torso_LeftLeg')
+        pyrosim.Send_Motor_Neuron(name= '12', jointName='Torso_RightLeg')
+        pyrosim.Send_Motor_Neuron(name= '13', jointName='LeftLeg_LeftLowerLeg')
+        pyrosim.Send_Motor_Neuron(name= '14', jointName='FrontLeg_FrontLowerLeg')
+        pyrosim.Send_Motor_Neuron(name= '15', jointName='BackLeg_BackLowerLeg')
+        pyrosim.Send_Motor_Neuron(name= '16', jointName='RightLeg_RightLowerLeg')
 
         first_motor_neuron = c.numSensorNeurons - 1
 

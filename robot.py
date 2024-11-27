@@ -33,21 +33,14 @@ class ROBOT:
         pass
 
     def Sense(self, timeStep):
-        """
-        the following attempt is wrong
-
-        for i in self.sensors:
-            self.sensors[i] = SENSOR.Get_Value(timeStep)
-        pass
-
-        The issue lies in the Sense method of your ROBOT class.
-        Specifically, you are trying to call SENSOR.Get_Value(timeStep)
-        as if it were a static method, but it is an instance method.
-        You should call Get_Value on each instance of SENSOR stored in self.sensors.
-        """
-
-        for sensor in self.sensors.values():
+        for sensor_name, sensor in self.sensors.items():
             sensor.Get_Value(timeStep)
+            if 'Lower' in sensor_name:
+                self.update_fitness(sensor_name,sensor.sensorValues[timeStep])
+
+        # original funciton
+        # for sensor in self.sensors.values():
+        #     sensor.Get_Value(timeStep)
 
     def think(self):
         self.nn.Update()
@@ -74,11 +67,11 @@ class ROBOT:
 
     # this should be called "export fitness" because when it is called nothing is done with the vlaue. 
     def Get_Fitness(self,solutionID):
-        
+
         # these lines querie pyrosim for the position of the first link which is a leg
-        #stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        #positionOfLinkZero = stateOfLinkZero[0]
-        #xCoordinateOfLinkZero = positionOfLinkZero[0]
+        # stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        # positionOfLinkZero = stateOfLinkZero[0]
+        # xCoordinateOfLinkZero = positionOfLinkZero[0]
 
         # these lines querie pyrosim for the position of the base link which is the torso
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
@@ -92,6 +85,6 @@ class ROBOT:
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
 
-        #with open(f"fitness{solutionID}.txt", "w") as f:
-        #    f.write(str(xCoordinateOfLinkZero))
-        #    f.close()
+    def update_fitness(self,sensor_name,sensor_value):
+        print(sensor_name,sensor_value)
+        # TODO: compute the mean up time here.

@@ -35,7 +35,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        self.Print()
+        self.Print_Progress()
         self.Select()
 
     def Spawn(self):
@@ -60,18 +60,18 @@ class PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         for i in self.parents:
-            if self.children[i].fitness > self.parents[i].fitness:
+            if self.children[i].fitness < self.parents[i].fitness:
                 self.parents[i] = self.children[i]
 
-    def Print(self):
+    def Print_Progress(self):
         print("\n")
         for i in self.parents:
             print(f"\nparent{str(i)}.fitness: {self.parents[i].fitness} child{str(i)}.fitness: {self.children[i].fitness}")
         print("\n")
         
-    def Show_Best(self):
-        # initialise this variable as infinite to avoid anything being higer than it on the first pass
-        best_fitness = -float('inf')
+    def Show_Best(self): #shows the best of the last generation
+        # initialise this variable as infinite to avoid anything being WORSE than it on the first pass
+        best_fitness = float('inf')
         # initialise as None, we can check later if there is actually a better fitness
         best_i = None
 
@@ -80,14 +80,13 @@ class PARALLEL_HILL_CLIMBER:
             print("self.parents is empty!")
             return
 
-        #a ccessing dictionary items directly can be more efficient. 
+        # accessing dictionary items directly can be more efficient. 
         # When you use "for i in self.parents" (like you have been in this tutorial), you need to access 
         # the value with self.parents[i] inside the loop, which involves an additional dictionary lookup. 
         # Using "for i, parent in self.parents.items()"" avoids this extra lookup.
         for i, parent in self.parents.items():
             current_fitness = parent.fitness
-            if current_fitness > best_fitness:
-                print(current_fitness)
+            if current_fitness < best_fitness:
                 best_fitness = current_fitness
                 best_i = i
 
@@ -96,6 +95,9 @@ class PARALLEL_HILL_CLIMBER:
             print("\n")
             print(f"Best Fitness: {self.parents[best_i].fitness}")
             print("\n")
+        else:
+            print('best_i is none')
+        
 
 
 

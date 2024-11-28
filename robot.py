@@ -8,6 +8,7 @@ import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 import os
+import numpy as np
 
 from sensor import SENSOR
 from motor import MOTOR
@@ -19,8 +20,9 @@ class ROBOT:
         self.robotId = p.loadURDF(f"body{str(solutionID)}.urdf")
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf")
         # kagi assistant said os.remove is safer and more pythonic than the rm shell command
-        # 
         #os.remove(f"brain{solutionID}.nndf")
+
+        self.lowerLegValues = []
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -35,8 +37,8 @@ class ROBOT:
     def Sense(self, timeStep):
         for sensor_name, sensor in self.sensors.items():
             sensor.Get_Value(timeStep)
-            if 'Lower' in sensor_name:
-                self.update_fitness(sensor_name,sensor.sensorValues[timeStep])
+            if 'Lower' in sensor_name: #send all the lower leg values te be collected in a dict. 
+                self.update_jump_fitness(sensor.sensorValues[timeStep])
 
         # original funciton
         # for sensor in self.sensors.values():
@@ -74,17 +76,17 @@ class ROBOT:
         # xCoordinateOfLinkZero = positionOfLinkZero[0]
 
         # these lines querie pyrosim for the position of the base link which is the torso
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        basePosition = basePositionAndOrientation[0]
-        zPosition = basePosition[2]
-    
+        # basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        # basePosition = basePositionAndOrientation[0]
+        # zPosition = basePosition[2]
+
+        jumpMean = np.mean(self.lowerLegValues) # an overly simple fitnes funciton, does not actually produce a jump
 
         with open(f"tmp{solutionID}.txt", "w") as f:
-            f.write(str(zPosition))
+            f.write(str(jumpMean))
             f.close()
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
 
-    def update_fitness(self,sensor_name,sensor_value):
-        print(sensor_name,sensor_value)
-        # TODO: compute the mean up time here.
+    def update_jump_fitness(self,sensor_value):
+        self.lowerLegValues.append(sensor_value)

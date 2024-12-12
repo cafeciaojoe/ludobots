@@ -90,3 +90,5 @@ class ROBOT:
 
     def update_jump_fitness(self,sensor_value):
         self.lowerLegValues.append(sensor_value)
+
+    

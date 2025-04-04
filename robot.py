@@ -22,7 +22,10 @@ class ROBOT:
         # kagi assistant said os.remove is safer and more pythonic than the rm shell command
         #os.remove(f"brain{solutionID}.nndf")
 
-        self.lowerLegValues = []
+        self.LeftLowerLegValues = []
+        self.RightLowerLegValues = []
+        self.BackLowerLegValues = []
+        self.FrontLowerLegValues = []
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -38,7 +41,7 @@ class ROBOT:
         for sensor_name, sensor in self.sensors.items():
             sensor.Get_Value(timeStep)
             if 'Lower' in sensor_name: #send all the lower leg values te be collected in a dict. 
-                self.update_jump_fitness(sensor.sensorValues[timeStep])
+                self.update_jump_fitness(sensor.sensorValues[timeStep],sensor_name)
 
         # original funciton
         # for sensor in self.sensors.values():
@@ -80,7 +83,13 @@ class ROBOT:
         # basePosition = basePositionAndOrientation[0]
         # zPosition = basePosition[2]
 
-        jumpMean = np.mean(self.lowerLegValues) # an overly simple fitnes funciton, does not actually produce a jump
+        leftMean = np.mean(self.LeftLowerLegValues) if self.LeftLowerLegValues else 0
+        rightMean = np.mean(self.RightLowerLegValues) if self.RightLowerLegValues else 0
+        backMean = np.mean(self.BackLowerLegValues) if self.BackLowerLegValues else 0
+        frontMean = np.mean(self.FrontLowerLegValues) if self.FrontLowerLegValues else 0
+
+        # Calculate the mean of all four legs
+        jumpMean = np.mean([leftMean, rightMean, backMean, frontMean])
 
         with open(f"tmp{solutionID}.txt", "w") as f:
             f.write(str(jumpMean))
@@ -88,5 +97,12 @@ class ROBOT:
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
 
-    def update_jump_fitness(self,sensor_value):
-        self.lowerLegValues.append(sensor_value)
+    def update_jump_fitness(self, sensor_value, sensor_name):
+        if 'LeftLowerLeg' in sensor_name:
+            self.LeftLowerLegValues.append(sensor_value)
+        elif 'RightLowerLeg' in sensor_name:
+            self.RightLowerLegValues.append(sensor_value)
+        elif 'BackLowerLeg' in sensor_name:
+            self.BackLowerLegValues.append(sensor_value)
+        elif 'FrontLowerLeg' in sensor_name:
+            self.FrontLowerLegValues.append(sensor_value)

@@ -80,6 +80,7 @@ class PARALLEL_HILL_CLIMBER:
             print("self.parents is empty!")
             return
         
+        # clearing out the last_best folder so it can be populated with the latest run.  
         if os.path.exists("last_best"):
             for file in os.listdir("last_best"):
                 file_path = os.path.join("last_best", file)
@@ -102,6 +103,7 @@ class PARALLEL_HILL_CLIMBER:
             print(f"Best Fitness: {self.parents[best_i].fitness}")
             print("\n")
 
+            # saving out the best so it can be replayed later. 
             if not os.path.exists("last_best"):
                 os.makedirs("last_best")
 

@@ -60,7 +60,7 @@ class PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         for i in self.parents:
-            if self.children[i].fitness < self.parents[i].fitness:
+            if self.children[i].fitness > self.parents[i].fitness:
                 self.parents[i] = self.children[i]
 
     def Print_Progress(self):
@@ -71,7 +71,7 @@ class PARALLEL_HILL_CLIMBER:
         
     def Show_Best(self): #shows the best of the last generation
         # initialise this variable as infinite to avoid anything being WORSE than it on the first pass
-        best_fitness = float('inf')
+        best_fitness = -float('inf')
         # initialise as None, we can check later if there is actually a better fitness
         best_i = None
 
@@ -93,7 +93,7 @@ class PARALLEL_HILL_CLIMBER:
         # Using "for i, parent in self.parents.items()"" avoids this extra lookup.
         for i, parent in self.parents.items():
             current_fitness = parent.fitness
-            if current_fitness < best_fitness:
+            if current_fitness > best_fitness:
                 best_fitness = current_fitness
                 best_i = i
 

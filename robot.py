@@ -21,11 +21,14 @@ class ROBOT:
         self.nn = NEURAL_NETWORK(f"brain{solutionID}.nndf")
         # kagi assistant said os.remove is safer and more pythonic than the rm shell command
         #os.remove(f"brain{solutionID}.nndf")
-
-        self.LeftLowerLegValues = []
-        self.RightLowerLegValues = []
-        self.BackLowerLegValues = []
-        self.FrontLowerLegValues = []
+        
+        # Initialize touchSensorValues as a dictionary
+        self.touchSensorValues = {
+            'LeftLowerLeg': [],
+            'RightLowerLeg': [],
+            'BackLowerLeg': [],
+            'FrontLowerLeg': []
+        }
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -40,9 +43,14 @@ class ROBOT:
     def Sense(self, timeStep):
         for sensor_name, sensor in self.sensors.items():
             sensor.Get_Value(timeStep)
-            if 'Lower' in sensor_name: #send all the lower leg values te be collected in a dict. 
-                self.update_jump_fitness(sensor.sensorValues[timeStep],sensor_name)
-
+            if 'LeftLowerLeg' in sensor_name:
+                self.touchSensorValues['LeftLowerLeg'].append(sensor.sensorValues[timeStep])
+            elif 'RightLowerLeg' in sensor_name:
+                self.touchSensorValues['RightLowerLeg'].append(sensor.sensorValues[timeStep])
+            elif 'BackLowerLeg' in sensor_name:
+                self.touchSensorValues['BackLowerLeg'].append(sensor.sensorValues[timeStep])
+            elif 'FrontLowerLeg' in sensor_name:
+                self.touchSensorValues['FrontLowerLeg'].append(sensor.sensorValues[timeStep])
         # original funciton
         # for sensor in self.sensors.values():
         #     sensor.Get_Value(timeStep)
@@ -83,26 +91,26 @@ class ROBOT:
         # basePosition = basePositionAndOrientation[0]
         # zPosition = basePosition[2]
 
-        leftMean = np.mean(self.LeftLowerLegValues) if self.LeftLowerLegValues else 0
-        rightMean = np.mean(self.RightLowerLegValues) if self.RightLowerLegValues else 0
-        backMean = np.mean(self.BackLowerLegValues) if self.BackLowerLegValues else 0
-        frontMean = np.mean(self.FrontLowerLegValues) if self.FrontLowerLegValues else 0
+    # Calculate the longest flight phase
+        flight_phase = 0
+        # using min length in case the lengths are all diff and we get an index error. 
+        min_length = min(len(self.touchSensorValues['LeftLowerLeg']),
+                        len(self.touchSensorValues['RightLowerLeg']),
+                        len(self.touchSensorValues['BackLowerLeg']),
+                        len(self.touchSensorValues['FrontLowerLeg']))
 
-        # Calculate the mean of all four legs
-        jumpMean = np.mean([leftMean, rightMean, backMean, frontMean])
+        for t in range(min_length):
+            if (self.touchSensorValues['LeftLowerLeg'][t] == -1 and
+                self.touchSensorValues['RightLowerLeg'][t] == -1 and
+                self.touchSensorValues['BackLowerLeg'][t] == -1 and
+                self.touchSensorValues['FrontLowerLeg'][t] == -1):
+                flight_phase += 1
+            else:
+                flight_phase = 0  # Reset if any leg touches the ground
 
+    # Write the flight phase duration to the fitness file
         with open(f"tmp{solutionID}.txt", "w") as f:
-            f.write(str(jumpMean))
+            f.write(str(flight_phase))
             f.close()
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
-
-    def update_jump_fitness(self, sensor_value, sensor_name):
-        if 'LeftLowerLeg' in sensor_name:
-            self.LeftLowerLegValues.append(sensor_value)
-        elif 'RightLowerLeg' in sensor_name:
-            self.RightLowerLegValues.append(sensor_value)
-        elif 'BackLowerLeg' in sensor_name:
-            self.BackLowerLegValues.append(sensor_value)
-        elif 'FrontLowerLeg' in sensor_name:
-            self.FrontLowerLegValues.append(sensor_value)

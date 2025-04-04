@@ -79,6 +79,12 @@ class PARALLEL_HILL_CLIMBER:
         if not self.parents:
             print("self.parents is empty!")
             return
+        
+        if os.path.exists("last_best"):
+            for file in os.listdir("last_best"):
+                file_path = os.path.join("last_best", file)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
 
         # accessing dictionary items directly can be more efficient. 
         # When you use "for i in self.parents" (like you have been in this tutorial), you need to access 
@@ -95,8 +101,19 @@ class PARALLEL_HILL_CLIMBER:
             print("\n")
             print(f"Best Fitness: {self.parents[best_i].fitness}")
             print("\n")
+
+            if not os.path.exists("last_best"):
+                os.makedirs("last_best")
+
+            os.system(f"cp body{str(self.parents[best_i].myID)}.urdf last_best/")
+            os.system(f"cp world{str(self.parents[best_i].myID)}.sdf last_best/")
+            os.system(f"cp brain{str(self.parents[best_i].myID)}.nndf last_best/")
         else:
             print('best_i is none')
+        
+
+            
+
         
 
 

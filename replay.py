@@ -79,17 +79,28 @@ def replay_simulation():
     file_name = os.path.basename(urdf_file)
     file_id = file_name.replace("body", "").replace(".urdf", "")
 
-    # Run the simulation using the copied files
-    print(f"Replaying simulation with ID: {file_id}")
-    os.system(f"python3 simulate.py GUI {file_id}")
+    try:
+        # Run the simulation using the copied files
+        print(f"Replaying simulation with ID: {file_id}")
+        os.system(f"python3 simulate.py GUI {file_id}")
+    finally:
+        # Ensure the original constants.py is restored
+        if backup_constants_file and os.path.exists(backup_constants_file):
+            # Restore the original constants.py from the backup
+            shutil.move(backup_constants_file, root_constants_file)
+        elif os.path.exists(root_constants_file):
+            # Remove the replaced constants.py if no backup exists
+            os.remove(root_constants_file)
 
-    # Restore the original constants.py
-    if backup_constants_file and os.path.exists(backup_constants_file):
-        # Restore the original constants.py from the backup
-        shutil.move(backup_constants_file, root_constants_file)
-    elif os.path.exists(root_constants_file):
-        # Remove the replaced constants.py if no backup exists
-        os.remove(root_constants_file)
+        # Clean up the copied files from the root directory
+        if os.path.exists(f"body{file_id}.urdf"):
+            os.remove(f"body{file_id}.urdf")
+        if os.path.exists(f"world{file_id}.sdf"):
+            os.remove(f"world{file_id}.sdf")
+        if os.path.exists(f"brain{file_id}.nndf"):
+            os.remove(f"brain{file_id}.nndf")
+
+        print("Cleanup complete")
 
     # If the selected folder is '_last_best', ask if the user wants to save the replay
     if selected_folder == "_last_best":
@@ -110,22 +121,7 @@ def replay_simulation():
             shutil.copy(sdf_file, replay_folder)
             shutil.copy(nndf_file, replay_folder)
 
-            # Restore the original constants.py
-            if backup_constants_file and os.path.exists(backup_constants_file):
-                # Restore the original constants.py from the backup
-                shutil.move(backup_constants_file, root_constants_file)
-            elif os.path.exists(root_constants_file):
-                # Remove the replaced constants.py if no backup exists
-                os.remove(root_constants_file)
-
             print(f"Replay saved to: {replay_folder}")
-
-    # Clean up the copied files from the root directory
-    os.remove(f"body{file_id}.urdf")
-    os.remove(f"world{file_id}.sdf")
-    os.remove(f"brain{file_id}.nndf")
-
-    print("Replay complete and temporary files cleaned up.")
 
 if __name__ == "__main__":
     replay_simulation()

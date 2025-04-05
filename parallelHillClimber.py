@@ -104,12 +104,14 @@ class PARALLEL_HILL_CLIMBER:
             print("\n")
 
             # saving out the best so it can be replayed later. 
-            if not os.path.exists("last_best"):
-                os.makedirs("last_best")
+            if not os.path.exists("replays/_last_best"):
+                os.makedirs("replays/_last_best")
 
-            os.system(f"cp body{str(self.parents[best_i].myID)}.urdf last_best/")
-            os.system(f"cp world{str(self.parents[best_i].myID)}.sdf last_best/")
-            os.system(f"cp brain{str(self.parents[best_i].myID)}.nndf last_best/")
+            os.system(f"cp body{str(self.parents[best_i].myID)}.urdf replays/_last_best/")
+            os.system(f"cp world{str(self.parents[best_i].myID)}.sdf replays/_last_best/")
+            os.system(f"cp brain{str(self.parents[best_i].myID)}.nndf replays/_last_best/")
+            os.system(f"cp constants.py replays/_last_best/")
+
         else:
             print('best_i is none')
         

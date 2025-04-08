@@ -4,3 +4,12 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+/replays
+
+*.sdf
+*.nndf
+*.urdf
+
+__pycache__/
+*.pyc
+*.txt

@@ -80,10 +80,10 @@ class PARALLEL_HILL_CLIMBER:
             print("self.parents is empty!")
             return
         
-        # clearing out the last_best folder so it can be populated with the latest run.  
-        if os.path.exists("last_best"):
-            for file in os.listdir("last_best"):
-                file_path = os.path.join("last_best", file)
+        # clearing out the _last_best folder so it can be populated with the latest run.  
+        if os.path.exists("replays/_last_best"):
+            for file in os.listdir("replays/_last_best"):
+                file_path = os.path.join("replays/_last_best", file)
                 if os.path.isfile(file_path):
                     os.remove(file_path)
 

@@ -58,7 +58,7 @@ def replay_simulation():
     
     # Temporarily replace constants.py
     root_constants_file = "constants.py"
-    selected_constants_file = os.path.join(selected_dir, "_constants.py")
+    selected_constants_file = os.path.join(selected_dir, "_constants.py")  # Updated to look for _constants.py
     backup_constants_file = None
 
     if os.path.exists(selected_constants_file):
@@ -68,16 +68,24 @@ def replay_simulation():
             shutil.copy(root_constants_file, backup_constants_file)
 
         # Replace the root constants.py with the one from the selected folder
-        shutil.copy(selected_constants_file, root_constants_file)
+        shutil.copy(selected_constants_file, root_constants_file)  # Copy _constants.py as constants.py
+    else:
+        print(f"Error: _constants.py not found in the selected replay folder '{selected_folder}'!")
+        return
 
-    # Copy the files to the root directory
-    os.system(f"cp {urdf_file} ./")
-    os.system(f"cp {sdf_file} ./")
-    os.system(f"cp {nndf_file} ./")
 
     # Extract the ID from the URDF file name (assuming the format is body<ID>.urdf)
     file_name = os.path.basename(urdf_file)
     file_id = file_name.replace("body", "").replace(".urdf", "")
+
+    # Copy the files to the root directory
+    try:
+        shutil.copy(urdf_file, f"./body{file_id}.urdf")
+        shutil.copy(sdf_file, f"./world{file_id}.sdf")
+        shutil.copy(nndf_file, f"./brain{file_id}.nndf")
+    except FileNotFoundError as e:
+        print(f"Error copying files: {e}")
+        return
 
     try:
         # Run the simulation using the copied files
@@ -88,8 +96,8 @@ def replay_simulation():
         if backup_constants_file and os.path.exists(backup_constants_file):
             # Restore the original constants.py from the backup
             shutil.move(backup_constants_file, root_constants_file)
-        elif os.path.exists(root_constants_file):
-            # Remove the replaced constants.py if no backup exists
+        elif os.path.exists(selected_constants_file):
+            # Remove the replaced constants.py only if it was copied from the replay folder
             os.remove(root_constants_file)
 
         # Clean up the copied files from the root directory
@@ -110,18 +118,23 @@ def replay_simulation():
                 break
             print("Invalid input! Please enter 'y' or 'n'.")
 
-        if save_replay == 'y':
-            comment = input("Enter a comment for this replay: ").strip().replace(" ", "_")
-            timestamp = datetime.now().strftime(f"{comment}_%H-%M-%S_%Y-%m-%d")
-            replay_folder = os.path.join(replays_dir, timestamp)
-            os.makedirs(replay_folder)
+    if save_replay == 'y':
+        comment = input("Enter a comment for this replay: ").strip().replace(" ", "_")
+        timestamp = datetime.now().strftime(f"{comment}_%H-%M-%S_%Y-%m-%d")
+        replay_folder = os.path.join(replays_dir, timestamp)
+        os.makedirs(replay_folder)
 
-            # Copy the files to the replay folder
-            shutil.copy(urdf_file, replay_folder)
-            shutil.copy(sdf_file, replay_folder)
-            shutil.copy(nndf_file, replay_folder)
+        # Copy the files to the replay folder
+        shutil.copy(urdf_file, replay_folder)
+        shutil.copy(sdf_file, replay_folder)
+        shutil.copy(nndf_file, replay_folder)
 
-            print(f"Replay saved to: {replay_folder}")
+        # Copy the constants.py file
+        constants_file = os.path.join(selected_dir, "_constants.py")  # Updated to look for _constants.py
+        if os.path.exists(constants_file):
+            shutil.copy(constants_file, os.path.join(replay_folder, "_constants.py"))  # Save as _constants.py
+        else:
+            print(f"Warning: _constants.py not found in '{selected_dir}'!")
 
 if __name__ == "__main__":
     replay_simulation()

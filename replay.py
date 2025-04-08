@@ -109,6 +109,9 @@ def replay_simulation():
             os.remove(f"brain{file_id}.nndf")
 
         print("Cleanup complete")
+    
+    # Initialize save_replay with a default value
+    save_replay = None
 
     # If the selected folder is '_last_best', ask if the user wants to save the replay
     if selected_folder == "_last_best":

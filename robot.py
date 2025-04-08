@@ -54,6 +54,7 @@ class ROBOT:
                 self.touchSensorValues['FrontLowerLeg'].append(sensor.sensorValues[timeStep])
             elif 'Torso' in sensor_name:  # Handle Torso sensor values
                 self.touchSensorValues['Torso'].append(sensor.sensorValues[timeStep])
+                #print(f'Torso = {sensor.sensorValues[timeStep]}')
         # original function
         # for sensor in self.sensors.values():
         #     sensor.Get_Value(timeStep)

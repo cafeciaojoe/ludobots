@@ -110,7 +110,7 @@ class PARALLEL_HILL_CLIMBER:
             os.system(f"cp body{str(self.parents[best_i].myID)}.urdf replays/_last_best/")
             os.system(f"cp world{str(self.parents[best_i].myID)}.sdf replays/_last_best/")
             os.system(f"cp brain{str(self.parents[best_i].myID)}.nndf replays/_last_best/")
-            os.system(f"cp constants.py replays/_last_best/")
+            os.system(f"cp constants.py replays/_last_best/_constants.py")
 
         else:
             print('best_i is none')

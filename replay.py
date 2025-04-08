@@ -58,7 +58,7 @@ def replay_simulation():
     
     # Temporarily replace constants.py
     root_constants_file = "constants.py"
-    selected_constants_file = os.path.join(selected_dir, "constants.py")
+    selected_constants_file = os.path.join(selected_dir, "_constants.py")
     backup_constants_file = None
 
     if os.path.exists(selected_constants_file):

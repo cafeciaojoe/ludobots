@@ -50,13 +50,21 @@ def Get_Touch_Sensor_Value_For_Link(linkName):
 
     pts = p.getContactPoints()
 
+    #print(f"Contact Points: {pts}")  # Debugging
+
     for pt in pts:
 
         linkIndex = pt[4]
 
         if ( linkIndex == desiredLinkIndex ):
 
+            #print(f"Relevant Contact Point: {pt}")  # Debugging
+
             touchValue = 1.0
+
+    # if linkName == 'Torso':
+    #     print(f'touch = {touchValue}')
+    #     pass
 
     return touchValue
 
@@ -85,6 +93,8 @@ def Prepare_Link_Dictionary(bodyID):
            rootLinkName = jointName[0]
 
            linkNamesToIndices[rootLinkName] = -1 
+    
+    #print("Link Names to Indices:", linkNamesToIndices)  # Debugging
 
 def Prepare_Joint_Dictionary(bodyID):
 

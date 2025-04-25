@@ -65,7 +65,7 @@ class SOLUTION():
         length = 1
         width = 1
         height = 1
-        pyrosim.Send_Cube(name="Box", pos=[-3, -3, height / 2], size=[length, width, height])
+        #pyrosim.Send_Cube(name="Box", pos=[-3, -3, height / 2], size=[length, width, height])
         pyrosim.End()
 
     # reffered to as Send_Body() in step 29 of quadruped. 

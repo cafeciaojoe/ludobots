@@ -7,7 +7,7 @@ Xgravity = 0
 Ygravity = 0
 Zgravity = -9.8
 
-loops = 5000
+loops = 500
 loopSleep = .001
 
 amplitude = math.pi/4
@@ -39,7 +39,7 @@ backLegForceMax = 50
 numSensorNeurons = 9
 numMotorNeurons = 8
 
-numberOfGenerations = 0
+numberOfGenerations = 5
 
-populationSize = 1
+populationSize = 10
 

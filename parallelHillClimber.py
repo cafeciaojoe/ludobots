@@ -60,8 +60,12 @@ class PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         for i in self.parents:
-            if self.children[i].fitness > self.parents[i].fitness:
-                self.parents[i] = self.children[i]
+            if c.MAXIMISE_FITNESS:
+                if self.children[i].fitness > self.parents[i].fitness:
+                    self.parents[i] = self.children[i]
+            else:
+                if self.children[i].fitness < self.parents[i].fitness:
+                    self.parents[i] = self.children[i]
 
     def Print_Progress(self):
         print("\n")
@@ -71,7 +75,10 @@ class PARALLEL_HILL_CLIMBER:
         
     def Show_Best(self): #shows the best of the last generation
         # initialise this variable as infinite to avoid anything being WORSE than it on the first pass
-        best_fitness = -float('inf')
+        if c.MAXIMISE_FITNESS:
+            best_fitness = float('-inf')
+        else:
+            best_fitness = float('inf')
         # initialise as None, we can check later if there is actually a better fitness
         best_i = None
 
@@ -93,9 +100,14 @@ class PARALLEL_HILL_CLIMBER:
         # Using "for i, parent in self.parents.items()"" avoids this extra lookup.
         for i, parent in self.parents.items():
             current_fitness = parent.fitness
-            if current_fitness > best_fitness:
-                best_fitness = current_fitness
-                best_i = i
+            if c.MAXIMISE_FITNESS:
+                if current_fitness > best_fitness:
+                    best_fitness = current_fitness
+                    best_i = i
+            else:
+                if current_fitness < best_fitness:
+                    best_fitness = current_fitness
+                    best_i = i
 
         if best_i is not None:
             self.parents[best_i].Start_Simulation("GUI")

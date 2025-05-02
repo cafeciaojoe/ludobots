@@ -28,7 +28,11 @@ class ROBOT:
             'RightLowerLeg': [],
             'BackLowerLeg': [],
             'FrontLowerLeg': [],
-            'Torso': []  # Added Torso
+            'LeftLeg': [],
+            'RightLeg': [],
+            'BackLeg': [],
+            'FrontLeg': [],
+            'Torso': []
         }
 
     def Prepare_To_Sense(self):
@@ -52,7 +56,15 @@ class ROBOT:
                 self.touchSensorValues['BackLowerLeg'].append(sensor.sensorValues[timeStep])
             elif 'FrontLowerLeg' in sensor_name:
                 self.touchSensorValues['FrontLowerLeg'].append(sensor.sensorValues[timeStep])
-            elif 'Torso' in sensor_name:  # Handle Torso sensor values
+            elif 'LeftLeg' in sensor_name:
+                self.touchSensorValues['LeftLeg'].append(sensor.sensorValues[timeStep])
+            elif 'RightLeg' in sensor_name:
+                self.touchSensorValues['RightLeg'].append(sensor.sensorValues[timeStep])
+            elif 'BackLeg' in sensor_name:
+                self.touchSensorValues['BackLeg'].append(sensor.sensorValues[timeStep])
+            elif 'FrontLeg' in sensor_name:
+                self.touchSensorValues['FrontLeg'].append(sensor.sensorValues[timeStep])
+            elif 'Torso' in sensor_name:
                 self.touchSensorValues['Torso'].append(sensor.sensorValues[timeStep])
                 #print(f'Torso = {sensor.sensorValues[timeStep]}')
         # original function
@@ -84,39 +96,39 @@ class ROBOT:
 
     # this should be called "export fitness" because when it is called nothing is done with the value. 
     def Get_Fitness(self, solutionID):
-
-        # these lines query pyrosim for the position of the first link which is a leg
-        # stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        # positionOfLinkZero = stateOfLinkZero[0]
-        # xCoordinateOfLinkZero = positionOfLinkZero[0]
-
-        # these lines query pyrosim for the position of the base link which is the torso
-        # basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        # basePosition = basePositionAndOrientation[0]
-        # zPosition = basePosition[2]
-
-        # Calculate the longest flight phase
-        flight_phase = 0
-        # using min length in case the lengths are all different and we get an index error. 
-        min_length = min(len(self.touchSensorValues['LeftLowerLeg']),
-                        len(self.touchSensorValues['RightLowerLeg']),
-                        len(self.touchSensorValues['BackLowerLeg']),
-                        len(self.touchSensorValues['FrontLowerLeg']),
-                        len(self.touchSensorValues['Torso']))  # Include Torso in the calculation
+        sit_phase = 0
+        # Use all limb and torso sensor arrays for min_length
+        min_length = min(
+            len(self.touchSensorValues['LeftLowerLeg']),
+            len(self.touchSensorValues['RightLowerLeg']),
+            len(self.touchSensorValues['BackLowerLeg']),
+            len(self.touchSensorValues['FrontLowerLeg']),
+            len(self.touchSensorValues['LeftLeg']),
+            len(self.touchSensorValues['RightLeg']),
+            len(self.touchSensorValues['BackLeg']),
+            len(self.touchSensorValues['FrontLeg']),
+            len(self.touchSensorValues['Torso'])
+        )
 
         for t in range(min_length):
-            if (self.touchSensorValues['LeftLowerLeg'][t] == -1 and
+            if (
+                self.touchSensorValues['LeftLowerLeg'][t] == -1 and
                 self.touchSensorValues['RightLowerLeg'][t] == -1 and
                 self.touchSensorValues['BackLowerLeg'][t] == -1 and
                 self.touchSensorValues['FrontLowerLeg'][t] == -1 and
-                self.touchSensorValues['Torso'][t] == -1):  # Check Torso sensor value
-                flight_phase += 1
+                self.touchSensorValues['LeftLeg'][t] == -1 and
+                self.touchSensorValues['RightLeg'][t] == -1 and
+                self.touchSensorValues['BackLeg'][t] == -1 and
+                self.touchSensorValues['FrontLeg'][t] == -1 and
+                self.touchSensorValues['Torso'][t] == 1
+            ):
+                sit_phase += 1
             else:
-                flight_phase = 0  # Reset if any leg or torso touches the ground
+                sit_phase = 0  # Reset if any limb or torso touches the ground
 
-        # Write the flight phase duration to the fitness file
+        # Write the sit phase duration to the fitness file
         with open(f"tmp{solutionID}.txt", "w") as f:
-            f.write(str(flight_phase))
+            f.write(str(sit_phase))
             f.close()
         
         os.system(f"mv tmp{solutionID}.txt fitness{solutionID}.txt")
